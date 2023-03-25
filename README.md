@@ -75,6 +75,7 @@ COPY . /usr/local/apache2/htdocs/
 ---  
 
 ## direct docker run  
+
 > (image) MSSQL  
 >> $ docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=비밀번호' -e 'TZ=Asia/Seoul' -e MSSQL_COLLATION=korean_wansung_ci_as -e MSSQL_TCP_PORT=59173 --name sql1 --hostname mac-sql1 -p 59173:59173 -d --restart unless-topped mcr.microsoft.com/mssql/server:2022-latest
 
@@ -85,15 +86,7 @@ COPY . /usr/local/apache2/htdocs/
 >> brew install msodbcsql mssql-tools
 >> sqlcmd -S _host,port_ -U SA -p '_password_'
 ---
-> (image) RabbitMQ
->> $ docker run -d --hostname my-rabbit --name some-rabbit -p 13579:15672 rabbitmq:3-management
->> localhost:13579
->> guest, guest
----
-> (image) MySql
->> $ docker pull mysql
->> 
----
+
 ### Commands
 docker ps -a  
 docker rm **container-id**
