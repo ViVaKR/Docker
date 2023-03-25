@@ -21,13 +21,13 @@ services:
 ## 1. run ##
 # $ docker-compose up -d
 
-## connect docker shell ##
+## 2. connect docker shell ##
 # $ docker exec -it viv-mysql
 
-## 2. docker shell ##
+## 2. first connection for configurations mysql  ##
 # docker>root@host: $ mysql -u root -p
 
-## 3. mysql init crate user ##
+## 3. mysql crate user for admin ##
 # mysql> create user 'viv'@'%' identified by 'password';
 # mysql> grant all privileges on *.* to 'viv@'%';
 # mysql> flush privileges;
