@@ -61,3 +61,14 @@ docker stop **container-id**
 }
 ```
 ---
+> Container Rename
+>> $ docker rename **CONTAINER** **NEW_NAME**
+
+> Remove Image
+>> $ docker rmi **IMAGE ID**
+
+> Tag Docker Image
+>> $ docker tag __imageId__ __repoName/imageName:tagName__
+
+
+
