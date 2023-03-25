@@ -2,10 +2,6 @@
 
 >> 애플리케이션 구축, 실행 및 배송을 위한 플랫폼
 ---
-> Create Dockerfile (도커파일 생성)
-
-* $ mkdir hello-docker
-
 > Dockerfile Examples
 
 ```docker
