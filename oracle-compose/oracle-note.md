@@ -4,7 +4,7 @@
 
 # 접속
 1. docker exec -it <container-id> bash  ' bash 로 접근
-2. docker exec -t <container-id> sqlplus ' 직접 접근  
+2. docker exec -it <container-id> sqlplus ' 직접 접근  
 > Enter user-name: system  
 > Enter password : 비밀번호
 >> sql> select instance_name, version, status from v$instance; ' 인스턴스 확인  

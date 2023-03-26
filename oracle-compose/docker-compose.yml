@@ -10,7 +10,7 @@
         env:
           ORACLE_RANDOM_PASSWORD: true
           APP_USER: my_user
-          APP_USER_PASSWORD: 'B9037!m8947#'
+          APP_USER_PASSWORD: '비밀번호'
 
         # Forward Oracle port
         volumes:
