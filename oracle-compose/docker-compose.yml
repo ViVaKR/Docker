@@ -27,9 +27,9 @@
 
 
 # $ docker pull gvenzl/oracle-xe
-# docker run -d -p 59573:1521 -e ORACLE_PASSWORD='B9037!m8947#' --name viv-oracle -v /Users/vivabm/Database/Oracle-Data:/opt/oracle/oradata gvenzl/oracle-xe
-# docker exec 468154a693bd createAppUser viv 'B9037!m8947#'
+# docker run -d -p 59573:1521 -e ORACLE_PASSWORD='비밀번호' --name viv-oracle -v /Users/vivabm/Database/Oracle-Data:/opt/oracle/oradata gvenzl/oracle-xe
 # docker exec -it <container-id> bash  ' bash 로 접근
+
 # docker exec -t <container-id> sqlplus ' 직접 접근 -> 
 # 1. Enter user-name: system
 # -> 2. Enter password : 비밀번호
