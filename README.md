@@ -86,7 +86,6 @@ COPY . /usr/local/apache2/htdocs/
 # (image) Oracle
 > $ docker run -d --name viv-oracle -p 59473:1521 -e ORACLE_PASSWORD='B9037!m8947#' -v /Users/vivabm/Database/Oracle-Data:/opt/oracle/oradata viv-oracle
 
-
 ### Commands
 docker ps -a  
 docker rm **container-id**
@@ -114,7 +113,7 @@ docker stop **container-id**
 >> $ docker tag __imageId__ __repoName/imageName:tagName__
 ---
 
-
-
+# Database 내부의 테이블 즉, 개념상의 데이터, 엔티티 (Entity), 인덱스 등등의
+## 이러한 구조자체를 통칭하여 Schema 라고도 함
 
 
