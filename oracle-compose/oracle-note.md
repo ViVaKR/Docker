@@ -5,20 +5,35 @@
 # 접속
 1. docker exec -it <container-id> bash  ' bash 로 접근
 2. docker exec -it <container-id> sqlplus ' 직접 접근  
-> Enter user-name: system  
-> Enter password : 비밀번호
+3. docker exec -it viv-oracle bash -c "source /opt/oracle/.bash_profile; sqlplus /nolog" ' 주 접속 방식  
+4. sql> connect sys as sysdba;
+>> sal> Enter password:  ->Connected.
+
+> 신규 사용자 생성  
+>> SQL> alter session set "_ORACLE_SCRIPT"=true; ' -> Session altered.  
+>> SQL> create user viv identified by "비밀번호"; ' -> User created.  
+>>SQL> grant all privileges to viv;  ' -> Grant succeeded.
+> 서비스 확인  
+>> SQL>select value from v$parameter where name like '%service_name%';  
+---
+### VALUE  
+---
+### XE
+---
+
+>> SQL> select name from v$pdbs;
 >> sql> select instance_name, version, status from v$instance; ' 인스턴스 확인  
 >> sql> SELECT owner, table_name FROM dba_tables;  
 >> sql> SELECT owner, table_name FROM all_tables;  
 >> sql> select table_name from user_tables;  
 
-# sys as sysdba 
+### sys as sysdba 
 > SQL> connect sys as sysdba;  
 > Enter password:   
 > Connected.  
 > SQL> ...
 
-# Developer Tools Connection Test
+### Developer Tools Connection Test
 > 서비스 이름 찾기 : CLI 접속 후 'CDB'  
 > sql> select value from v$parameter where name like '%service_name%';  
 > result -> **XE**  
@@ -27,11 +42,11 @@
 > CDB -> Root (CDB$ROOT)  
 > Seed (PDB$Seed) : 원형  
 ---
-> 가상 데이터베이스 확인
->> sql> select name from v$pdbs;  
->> Pluggable Database, 가상데이터베이스 -> 'XEPDB1'    
->>> Seed PDB Pluggable Database 생성 후 서버 접속 ##  
->>> -> ViV-XEPDB-1, 서비스이름 -> XEPDB1  
+### 가상 데이터베이스 확인
+> sql> select name from v$pdbs;  
+> Pluggable Database, 가상데이터베이스 -> 'XEPDB1'    
+>> Seed PDB Pluggable Database 생성 후 서버 접속 ##  
+>> -> ViV-XEPDB-1, 서비스이름 -> XEPDB1  
 ---
 > 원격접속 설정  
 >> 기본값 : localhost 접속만 하도록 되어있으므로  
