@@ -1,0 +1,36 @@
+    services:
+
+      # Oracle service (label used to access the service container)
+      oracle:
+
+        # Docker Hub image (feel free to change the tag "latest" to any other available one)
+        image: gvenzl/oracle-xe:latest
+
+        # Provide passwords and other environment variables to container
+        env:
+          ORACLE_RANDOM_PASSWORD: true
+          APP_USER: my_user
+          APP_USER_PASSWORD: 'B9037!m8947#'
+
+        # Forward Oracle port
+        volumes:
+          - /Users/vivabm/Database/Oracle-Data:/opt/orcle/oradata
+        ports:
+          - 59573:1521
+
+        # Provide healthcheck script options for startup
+        options: >-
+          --health-cmd healthcheck.sh
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+
+# $ docker pull gvenzl/oracle-xe
+# docker run -d -p 59573:1521 -e ORACLE_PASSWORD='B9037!m8947#' --name viv-oracle -v /Users/vivabm/Database/Oracle-Data:/opt/oracle/oradata gvenzl/oracle-xe
+# docker exec 468154a693bd createAppUser viv 'B9037!m8947#'
+# docker exec -it <container-id> bash  ' bash 로 접근
+# docker exec -t <container-id> sqlplus ' 직접 접근 -> 
+# 1. Enter user-name: system
+# -> 2. Enter password : 비밀번호
+# select instance_name, version, status from v$instance; ' 인스턴스 확인

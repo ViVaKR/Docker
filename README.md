@@ -68,16 +68,12 @@ COPY . /usr/local/apache2/htdocs/
 > 실행예시
 <span style="color:orange">**docker-compose up -d**</span>
 
-
-
-
- 
 ---  
 
 ## direct docker run  
 
-> (image) MSSQL  
->> $ docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=비밀번호' -e 'TZ=Asia/Seoul' -e MSSQL_COLLATION=korean_wansung_ci_as -e MSSQL_TCP_PORT=59173 --name sql1 --hostname mac-sql1 -p 59173:59173 -d --restart unless-topped mcr.microsoft.com/mssql/server:2022-latest
+# (image) MSSQL  
+> $ docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=비밀번호' -e 'TZ=Asia/Seoul' -e MSSQL_COLLATION=korean_wansung_ci_as -e MSSQL_TCP_PORT=59173 --name sql1 --hostname mac-sql1 -p 59173:59173 -d --restart unless-topped mcr.microsoft.com/mssql/server:2022-latest
 
 > Make a Docker container start automatically on system boot.
 >> $ docker update --restart unless-stopped **name**
@@ -86,6 +82,10 @@ COPY . /usr/local/apache2/htdocs/
 >> brew install msodbcsql mssql-tools
 >> sqlcmd -S _host,port_ -U SA -p '_password_'
 ---
+
+# (image) Oracle
+> $ docker run -d --name viv-oracle -p 59473:1521 -e ORACLE_PASSWORD='B9037!m8947#' -v /Users/vivabm/Database/Oracle-Data:/opt/oracle/oradata viv-oracle
+
 
 ### Commands
 docker ps -a  
