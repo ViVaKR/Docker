@@ -112,8 +112,39 @@ docker stop **container-id**
 > Tag Docker Image
 >> $ docker tag __imageId__ __repoName/imageName:tagName__
 ---
+### Database 내부의 테이블 즉, 개념상의 데이터, 엔티티 (Entity), 인덱스 등등의 Schema  
+---
+### DDL (Entity, 테이블, 테이블 구조, 개념상의 데이터 등 정의하기)  
+> CREATE  
+> ALTER  
+> DROP  
+>> 프로그램상의 class 에 필드, 엔티티에 대한 이름과 데이터 자료형 정와 동일 
+>> 이러한 자료형을 Oracle Data Type 으로 변경하여 매핑 하면됨
+Data Types e.g.
+```sql
+CREATE TABLE MEMBER 
+(
+    ID          VARCHAR2(50),    
+    PWD         VARCHAR2(50),  
+    NAME        VARCHAR2(50),  
+    GENDER      VARCHAR2(50),  
+    AGE         NUMBER(50),  
+    BIRTHDAY    VARCHAR2(50),  
+    PHONE       VARCHAR2(50),  
+    REGDATE     DATE(50),  
+)
+```
 
-# Database 내부의 테이블 즉, 개념상의 데이터, 엔티티 (Entity), 인덱스 등등의
-## 이러한 구조자체를 통칭하여 Schema 라고도 함
+
+### DML (CRUD)
+> INSERT  
+> SELECT  
+> UPDATE  
+> DELETE  
+
+### DCL 
+> GRANT  
+> REVOKE
+
 
 
