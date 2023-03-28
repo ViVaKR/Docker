@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  app:
+    image: wordpress:latest
+    volumes:
+      - /Users/vivabm/Docker/Wordpress:/var/www/html
+    ports:
+      - "44444:80"
+    restart: always
+    environment:
+        WORDPRESS_DB_HOST: 172.30.1.10:59073
+        WORDPRESS_DB_NAME: Wordpress
+        WORDPRESS_DB_USER: word
+        WORDPRESS_DB_PASSWORD: "B9037!m8947#" 
+     
+
+# $docker-compose up 

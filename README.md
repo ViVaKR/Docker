@@ -10,39 +10,42 @@
 > 이미지 + 환경추가 -> 최종이미지 생성 목적
 
 <span style="color:orange">**주요명령어**</span> 
-> FROM [이미지] : 기본 이미지 설정  
-> RUN ["명령어", "인자1", "인자2"] : 빌드시 명령어 지정  
-> ENTRYPOINT ["명령어", "인자1", "인자2] : 컨테이너에서 항상 실행될 명령어설정, 종료시 컨테이너도 종료  
-> CMD ["명령어", "인자1", "인자2"] : 컨테이너 실행시 최초 일회 실행될 명령어 설정  
-> EXPOSE [Port]/[Protocol(option)] : 서비스할 포트 지정   
-> ADD [호스트 파일] [저장경로]   
-> WORKDIR [경로] : 명령어가 실행될 작업 디렉토를 지정  
-> ENV [키] [값] : 환경변수 설정  >>> LABEL [키]=[값] : key value lebel, meta data  
-> USR [UID]:[GID] : 사용자 지정   
-> ARG [Key]=[Value] : docker build argumene option 을 넘겨줄 환경값 지정  
---- 
-<span style="color:orange">**Dockerfile Examples**</span> 
-1. node:alpine
 ```docker
-FROM node:alpine
-COPY . /app
-WORKDIR /app
-CMD node app.js
+    FROM [이미지] : 기본 이미지 설정  
+    RUN ["명령어", "인자1", "인자2"] : 빌드시 명령어 지정  
+    ENTRYPOINT ["명령어", "인자1", "인자2] : 컨테이너에서 항상 실행될 명령어설정, 종료시 컨테이너도 종료  
+    CMD ["명령어", "인자1", "인자2"] : 컨테이너 실행시 최초 일회 실행될 명령어 설정  
+    EXPOSE [Port]/[Protocol(option)] : 서비스할 포트 지정   
+    ADD [호스트 파일] [저장경로]   
+    WORKDIR [경로] : 명령어가 실행될 작업 디렉토를 지정  
+    ENV [키] [값] : 환경변수 설정  >>> LABEL [키]=[값] : key value lebel, meta data  
+    USR [UID]:[GID] : 사용자 지정   
+    ARG [Key]=[Value] : docker build argumene option 을 넘겨줄 환경값 지정  
 ```
-2. httpd
+# <span style="color:orange">**Dockerfile Examples**</span> 
+
+## node:alpine
 ```docker
-FROM httpd:alpine
-COPY . /usr/local/apache2/htdocs/
+    FROM node:alpine
+    COPY . /app
+    WORKDIR /app
+    CMD node app.js
 ```
-<span style="color:orange">**Build Dockerfile**</span> 
-1. $ docker build -t hello-docker:1.0.0 .  
-2. $ docker image history **head-image-id-take-3**  
-3. $ docker run --name container-naming -p 4680:80 hello-docker:1.0.0  
-4. browser -> localhost:4680 -> (hit enter)  
-5. after changed html -> docker stop ps-id & docker rmi image-id  
-6. -> goto (no.1) with change version number  
-7. $ docker pull my-docker-id/images-name  
----  
+## httpd
+```docker
+    FROM httpd:alpine
+    COPY . /usr/local/apache2/htdocs/
+```
+# <span style="color:orange">**Build Dockerfile**</span> 
+```bash
+    $ docker build -t hello-docker:1.0.0 .  
+    $ docker image history **head-image-id-take-3**  
+    $ docker run --name container-naming -p 4680:80 hello-docker:1.0.0  
+    # browser -> localhost:4680 -> (hit enter)  
+    # after changed html -> docker stop ps-id & docker rmi image-id  
+    #goto (no.1) with change version number  
+    $ docker pull my-docker-id/images-name  
+```  
 
 ## Docker Compose (도커 컴포즈)  
 > 다수의 컨테이너의 통합 하여 어플리케이션을 구성할수 있음
@@ -65,12 +68,11 @@ COPY . /usr/local/apache2/htdocs/
 > networks : 도커 컴포즈를 이용해 생성할 네트워크의 하위 옵션 설정
 >> driver : 네트워크 타입 설정
 >> ipam : subnet, gateway 정보 설덩
-> 실행예시
-<span style="color:orange">**docker-compose up -d**</span>
+> 실행예시 <span style="color:orange">**docker-compose up -d**</span>
 
 ---  
 
-## direct docker run  
+## direct -> $ docker run  
 
 # (image) MSSQL  
 > $ docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=비밀번호' -e 'TZ=Asia/Seoul' -e MSSQL_COLLATION=korean_wansung_ci_as -e MSSQL_TCP_PORT=59173 --name sql1 --hostname mac-sql1 -p 59173:59173 -d --restart unless-topped mcr.microsoft.com/mssql/server:2022-latest
@@ -84,35 +86,46 @@ COPY . /usr/local/apache2/htdocs/
 ---
 
 # (image) Oracle
-> $ docker run -d --name viv-oracle -p 59473:1521 -e ORACLE_PASSWORD='B9037!m8947#' -v /Users/vivabm/Database/Oracle-Data:/opt/oracle/oradata viv-oracle
+```bash
+$ docker run -d --name viv-oracle -p 59473:1521 -e ORACLE_PASSWORD='B9037!m8947#' -v /Users/vivabm/Database/Oracle-Data:/opt/oracle/oradata viv-oracle
+```
 
-### Commands
+## Commands
+```bash
 docker ps -a  
 docker rm **container-id**
 docker images  
 docker rmi **repository**  
 docker start **container-id**  
 docker stop **container-id**  
+```
 
-### Config
+## Config
 > **"docker ps -a"** output format
 > code ~/.docker/config.json  
+
 ```json
 {
     "psFormat": "table {{.ID}}\\t{{.Image}}\\t{{.Status}}\\t{{.Names}}"
 }
 ```
----
+
 > Container Rename
->> $ docker rename **CONTAINER** **NEW_NAME**
+```bash
+    $ docker rename **CONTAINER** **NEW_NAME**
+    #Remove Image
+    $ docker rmi **IMAGE ID**
+    # Tag Docker Image
+    $ docker tag __imageId__ __repoName/imageName:tagName__
+```
 
-> Remove Image
->> $ docker rmi **IMAGE ID**
+## 도커이미지
+image -> run  
+dontainer commit -> image (backup)  
+Dockerfile  build -> image (create)
 
-> Tag Docker Image
->> $ docker tag __imageId__ __repoName/imageName:tagName__
----
-
-
-
-
+## commit/build : 이미지가 생성됨
+```bash
+    docker commit <container> <name> # 이미지 생성
+    docker build -t <name> # 이미지 생성
+```
