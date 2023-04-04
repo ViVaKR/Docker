@@ -2,9 +2,7 @@
 http {
     server {
         listen 8080;
-        root /Users/vivabm/Web/1_Public/root/index.html;
-        
-        
+        root /Users/vivabm/Web/1_Public/root/index.html; 
     }
 }
 ```

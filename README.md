@@ -104,7 +104,7 @@ docker stop **container-id**
 > **"docker ps -a"** output format
 > code ~/.docker/config.json  
 
-- docker ps result format 
+- 컨테이너 정보 단축하기 (docker ps result format)
 ```json
 {
     "psFormat": "table {{.ID}}\\t{{.Image}}\\t{{.Status}}\\t{{.Names}}"
