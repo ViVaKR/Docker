@@ -52,22 +52,22 @@
   - **docker-compose.yaml** 파일을 사용함
   - 복수의 이미지 + 복수의 컨테이너 -> 프로젝트 구성 및 배포
 
-### **작성**
+### 작성
 
-> version : 버전기록
-> service : 생성할 컨테이너 이름정의 및 하위옵션 설정
->> image : 컨테이너 생성에 사용할 이미지 지정
->> build : 이미지를 빌드함
->> environment : 컨테이너 환경변수 설정
->> restart : 자동으로 컨테이너를 실행할 지 여부 설정
->> volumes : 컨테이너 데이터를 로컬 디렉토리로 지정할 경로 설정
->> networks : 사용할 네트워크 지정
->> ports : 포트지정
->> depends_on : 컨테이너간의 의존관계 설정
-> networks : 도커 컴포즈를 이용해 생성할 네트워크의 하위 옵션 설정
->> driver : 네트워크 타입 설정
->> ipam : subnet, gateway 정보 설덩
->> docker-compose up -d**</span>
+- version : 버전기록  
+- service : 생성할 컨테이너 이름정의 및 하위옵션 설정  
+- image : 컨테이너 생성에 사용할 이미지 지정  
+- build : 이미지를 빌드  
+- environment : 컨테이너 환경변수 설정  
+- restart : 자동으로 컨테이너를 실행할 지 여부 설정  
+- volumes : 컨테이너 데이터를 로컬 디렉토리로 지정할 경로 설정  
+- networks : 사용할 네트워크 지정  
+- ports : 포트지정  
+- depends_on : 컨테이너간의 의존관계 설정    
+- networks : 도커 컴포즈를 이용해 생성할 네트워크의 하위 옵션 설정   
+- driver : 네트워크 타입 설정   
+- ipam : subnet, gateway 정보 설정   
+- docker-compose up -d**
 
 ## direct -> $ docker run  
 
@@ -94,20 +94,22 @@ docker run -d --name viv-oracle -p 포트:포트 -e ORACLE_PASSWORD='비밀번�
 ```bash
     docker ps -a # all container
     docker ps -s # service container
-    docker rm **container-id** # remove container
+    docker rm [container-id] # remove container
     
     docker images   # image list
     docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
-    docker rmi **repository**  
-    docker start **container-id**  
-    docker stop **container-id**  
+    
+    docker start [container-id]  
+    docker stop [container-id]  
+    docker rmi [repository]  
 ```
 
 ## Config
->
-> **"docker ps -a"** output format
-> code ~/.docker/config.json  
 
+```bash
+ docker ps -a output format
+ code ~/.docker/config.json  
+```
 - 컨테이너 정보 단축하기 (docker ps result format)
 
 ```json
@@ -119,11 +121,11 @@ docker run -d --name viv-oracle -p 포트:포트 -e ORACLE_PASSWORD='비밀번�
 > Container Rename
 
 ```bash
-    $ docker rename **CONTAINER** **NEW_NAME**
+    $ docker rename [CONTAINER] [NEW_NAME]
     #Remove Image
-    $ docker rmi **IMAGE ID**
+    $ docker rmi [IMAGE_ID]
     # Tag Docker Image
-    $ docker tag __imageId__ __repoName/imageName:tagName__
+    $ docker tag [imageId] [repoName/imageName:tagName]
 ```
 
 ## 도커이미지
@@ -135,6 +137,6 @@ Dockerfile  build -> image (create)
 ## commit/build : 이미지가 생성됨
 
 ```bash
-    docker commit <container> <name> # 이미지 생성
-    docker build -t <name> # 이미지 생성
+    docker commit [container] [name] # 이미지 생성
+    docker build -t [name] # 이미지 생성
 ```
