@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 FROM ubuntu:latest
 # 앞에 명령이 성공한 후 에 뒷 명령실행
 # build 시 실행되는 명령어
