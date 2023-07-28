@@ -7,6 +7,8 @@
 
 ## 용어
 
+- Container Image
+- Container
 - Docker Host (Linux Kernel)
 - Docker Daemon
   - systemctl start docker
@@ -19,11 +21,6 @@
 - Container : 동작중인 컨테이너 (읽기/쓰기)
 
 hub.docker.com : 컨테이너 웹 저장소
-
-
-
-
-
 
 베어 메탈
 하이퍼바이저

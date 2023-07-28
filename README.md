@@ -89,20 +89,26 @@
 
 ## direct -> $ docker run
 
-## (image) MSSQL
+## MSSQL
 
-> $ docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=B9037!m8947#' -e 'TZ=Asia/Seoul' -e MSSQL_COLLATION=korean_wansung_ci_as --name viv-sql --hostname viv-sql -p 59173:1433 -d --restart unless-stopped mcr.microsoft.com/mssql/server:2022-latest
->
-> Make a Docker container start automatically on system boot.
->
-> > $ docker update --restart unless-stopped **name**
->
-> SQL Server Command Line Tolls for macOS released
->
-> brew install msodbcsql mssql-tools
-> sqlcmd -S _host,port_ -U SA -p '_password_'
+```bash
 
-## (image) Oracle
+docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=B9037!m8947#' -e 'TZ=Asia/Seoul' -e MSSQL_COLLATION=korean_wansung_ci_as --name viv-sql --hostname viv-sql -p 29173:1433 -d --restart unless-stopped mcr.microsoft.com/mssql/server:2022-latest
+
+```
+
+## Make a Docker container start automatically on system boot
+
+`$ docker update --restart unless-stopped **name**`
+
+## SQL Server Command Line Tools for macOS released
+
+```bash
+  brew install msodbcsql mssql-tools
+  sqlcmd -S _host,port_ -U SA -p '_password_'
+```
+
+## Oracle
 
 ```bash
 docker run -d --name viv-oracle -p 포트:포트 -e ORACLE_PASSWORD='비밀번호' -v /Users/${whoami}/Database/Oracle-Data:/opt/oracle/oradata viv-oracle
@@ -160,3 +166,16 @@ Dockerfile build -> image (create)
     docker commit [container] [name] # 이미지 생성
     docker build -t [name] # 이미지 생성
 ```
+
+## 컨테이너 배포
+
+1. 로그인 `$ docker login`
+2. 이미지태그 설정 :  `docker tag mcr.microsoft.com/mssql/server:2022-latest vivabm/mssql:v1 My Docker ID`
+3. 태그 형식 : `아이디/이미지명:태그` , 슬레시는 하나만 넣어야 함
+4. 배포 : `Docker push vivabm/mssql:v1`
+
+## Docker Registry
+
+* Registry : 컨테이너 이미지를 저장하는 저장소
+  * Docker Hub : hub.docker.com
+  * Private Registry : 사내의 컨테이너 저장소
