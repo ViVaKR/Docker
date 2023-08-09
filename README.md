@@ -1,6 +1,8 @@
-# Docker Note
+# Docker
 
-## 이미지 (Image) `docker images`
+## What is Docker?
+
+## 이미지 (Image)
 
 ## 컨테이너 (Container)
 

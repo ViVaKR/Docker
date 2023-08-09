@@ -2,7 +2,6 @@
 
 ## Docker
 
-
 ## Oh-My-Posh Install
 
 ```bash
