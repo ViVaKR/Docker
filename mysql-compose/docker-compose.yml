@@ -12,23 +12,24 @@ services:
       - --collation-server=utf8mb4_unicode_ci # 한글설정 2
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "Password!비밀번호"
+      MYSQL_ROOT_PASSWORD: "B9037!m8947#"
     volumes:
-      # 로컬 볼륨설정
-      - /Users/vivabm/Database/MySQL-Data:/var/lib/mysql
+      - F:\DockerData\mysql-data:/var/lib/mysql
+      # 로컬 볼륨설정 (macOS)
+      # - /Users/vivabm/Database/MySQL-Data:/var/lib/mysql
 
 
 ## 1. run ##
-# $ docker-compose up -d
+#! $ docker-compose up -d
 
 ## 2. connect docker shell ##
-# $ docker exec -it viv-mysql
+# (1) $ docker exec -it viv-mysql mysql -p
 
 ## 2. first connection for configurations mysql  ##
-# docker>root@host: $ mysql -u root -p
+# (2) docker>root@host: $ mysql -u root -p
 
 ## 3. mysql crate user for admin ##
-# mysql> create user 'viv'@'%' identified by 'password';
-# mysql> grant all privileges on *.* to 'viv@'%';
-# mysql> flush privileges;
-# mysql> quit
+# (3) mysql> create user 'viv'@'%' identified by 'password';
+# (4) mysql> grant all privileges on *.* to 'viv@'%';
+# (5) mysql> flush privileges;
+# (6) mysql> quit

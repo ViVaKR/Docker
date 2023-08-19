@@ -91,7 +91,7 @@
 
 ## direct -> $ docker run
 
-## (image) MSSQL
+## MSSQL
 
 > $ docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=B9037!m8947#' -e 'TZ=Asia/Seoul' -e MSSQL_COLLATION=korean_wansung_ci_as --name viv-sql --hostname viv-sql -p 59173:1433 -d --restart unless-stopped mcr.microsoft.com/mssql/server:2022-latest
 >
@@ -104,7 +104,7 @@
 > brew install msodbcsql mssql-tools
 > sqlcmd -S _host,port_ -U SA -p '_password_'
 
-## (image) Oracle
+## Oracle
 
 ```bash
 docker run -d --name viv-oracle -p 포트:포트 -e ORACLE_PASSWORD='비밀번호' -v /Users/${whoami}/Database/Oracle-Data:/opt/oracle/oradata viv-oracle
