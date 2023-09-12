@@ -180,3 +180,15 @@ Dockerfile build -> image (create)
 * Registry : 컨테이너 이미지를 저장하는 저장소
   * Docker Hub : hub.docker.com
   * Private Registry : 사내의 컨테이너 저장소
+
+## Restore
+
+```bash
+  docker cp ./db.bak viv-sql:/home
+  docker exec -u 0 -it viv-sql bash
+
+  chmod 644 *.*
+  chown root:root *.*
+
+
+```
