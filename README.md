@@ -190,6 +190,4 @@ Dockerfile build -> image (create)
 
   chmod 644 *.*
   chown root:root *.*
-
-
 ```
