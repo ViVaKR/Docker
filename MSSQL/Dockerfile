@@ -1,0 +1,2 @@
+ARG MYAPP_IMAGE=com.ubuntu:latest
+FROM $MYAPP_IMAGE
