@@ -95,8 +95,9 @@
   docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=비밀&8번호#' -e 'TZ=Asia/Seoul' -e MSSQL_COLLATION=korean_wansung_ci_as --name viv-sql --hostname viv-sql -p 59173:1433 -d --restart unless-stopped mcr.microsoft.com/mssql/server:2022-latest
 
   # Apple M1
-  docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=B9037!m8947#' -e 'TZ=Asia/Seoul' -e MSSQL_COLLATION=korean_wansung_ci_as --name viv-sql --hostname viv-sql --platform linux/amd64 -p 59273:1433 -d --restart unless-stopped mcr.microsoft.com/mssql/server:2022-latest
+  docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=B9037!m8947#' -e 'TZ=Asia/Seoul' -e MSSQL_COLLATION=korean_wansung_ci_as --name viv-sql --hostname viv-sql --platform linux/amd64 -p 59273:1433 -v /Users/vivakr/DB/data:/var/opt/mssql -d --restart unless-stopped mcr.microsoft.com/mssql/server:2022-latest
 
+  
   # Make a Docker container start automatically on system boot.
 
   docker update --restart unless-stopped **name**
