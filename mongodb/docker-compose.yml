@@ -1,0 +1,25 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    container_name: viv-mongo
+    ports:
+      - 59673:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: viv
+      MONGO_INITDB_ROOT_PASSWORD: Viv8947
+
+  # mongo-express:
+  #   image: mongo-express
+  #   container_name: viv-mongo-express
+  #   restart: always
+  #   ports:
+  #     - 59573:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: Viv8947
+  #     ME_CONFIG_MONGODB_URL: "mongodb://root:Viv8947@mongo:27017"
