@@ -14,7 +14,7 @@
 * MCR (Microsoft Container Registry) : 마이크로소프트가 제공하는 컨테이너 이미지 공식 소스.
   * [Go To MCR](https://hub.docker.com/_/microsoft-dotnet/)
 
-## Dockerfile (도커파일)
+## Dockerfile
 
 * 이미지를 생성하는 명령 세트를 정의 하는 파일.
 * 이미지를 다시 빌드할 때는 변경된 계층만 다시 빌드됨.
@@ -51,12 +51,41 @@
     $ docker pull my-docker-id/images-name
 ```
 
+## Docker Instructions
+
+`FROM` "FROM"을 사용하여 시작하려는 기본 이미지를 지정합니다.  
+`RUN` RUN은 이미지 빌드 프로세스 중에 명령을 실행하는 데 사용됩니다.  
+`ENV` 이미지 내에서 환경 변수를 설정하여 빌드 프로세스 중과 컨테이너가 실행되는 동안 모두 액세스할 수 있도록 합니다. 빌드 시간 변수만 정의해야 하는 경우 ARG 명령을 활용해야 합니다.  
+`COPY` COPY 명령은 호스트 시스템에서 Docker 이미지로 파일 또는 폴더를 복사하는 데 사용됩니다.  
+`EXPOSE` Docker 이미지가 런타임에 수신 대기할 포트를 지정하는 데 사용됩니다.  
+`ADD` COPY 명령의 고급 형식입니다. 호스트 시스템에서 docker 이미지로 파일을 복사할 수 있습니다. URL에서 Docker 이미지의 대상으로 파일을 복사하는 데 사용할 수도 있습니다. 실제로 이를 사용하여 호스트 시스템에서 tarball을 복사하고 도커 이미지의 대상으로 자동으로 추출할 수 있습니다.  
+`WORKDIR` 현재 작업 디렉터리를 설정하는 데 사용됩니다.  
+`VOLUME` Docker 컨테이너에 볼륨을 생성하거나 탑재하는 데 사용됩니다  
+`USER` 컨테이너를 실행할 때 사용자 이름과 UID를 설정합니다. 이 지시어를 사용하여 컨테이너의 루트가 아닌 사용자를 설정할 수 있습니다.  
+`LABEL` 도커 이미지의 메타데이터 정보 지정  
+`ARG` 빌드 타임에 ARG	키-값 쌍 변수를 정의합니다. 그러나 이러한 ARG 변수는 컨테이너가 실행 중일 때 액세스할 수 없습니다. 실행 중인 컨테이너 내에서 변수를 유지 관리하려면 대신 ENV 명령을 사용합니다.  
+`CMD` 실행 중인 컨테이너 내에서 명령을 실행합니다. 하나의 CMD 명령만 허용되며, 여러 명령이 있는 경우 마지막 명령어만 적용됩니다.  
+`ENTRYPOINT` Docker 컨테이너가 시작될 때 실행할 명령을 지정합니다. ENTRYPOINT를 지정하지 않으면 기본값은 "/bin/sh -c"입니다.  
+
+
+## The Base Image
+
+`FROM node:18-alpine`
+
+
+## Copying source code
+
+```bash
+  FROM node;18-alpine
+  WORKDIR /user/src/app
+
+```
+
 ## Volume
 
 ```bash
     docker volume ls
     dokcer inspect $volumeName
-
     docker ps
     docker inspect --format="{{.Mounts}}" $containerID
 ```
@@ -85,9 +114,18 @@
 * ipam : subnet, gateway 정보 설정
 * docker-compose up -d\*\*
 
-## direct -> $ docker run
+## Dockerignore
 
-
+- name : `.dockerignore`
+- contents ex:
+  .git  
+  .gitignore  
+  npm-debug.log
+  Dockerfile*
+  docker-compose*
+  README.md
+  LICENSE
+  .vscode
 
 ## Oracle Docker
 
@@ -121,9 +159,9 @@
 * 컨테이너 정보 단축하기 (docker ps result format)
 
 ```json
-{
-  "psFormat": "table {{.ID}}\\t{{.Image}}\\t{{.Status}}\\t{{.Names}}"
-}
+  {
+    "psFormat": "table {{.ID}}\\t{{.Image}}\\t{{.Status}}\\t{{.Names}}"
+  }
 ```
 
 > Container Rename
@@ -146,7 +184,7 @@ Dockerfile build -> image (create)
 
 ```bash
     docker commit [container] [name] # 이미지 생성
-    docker build -t [name] # 이미지 생성
+    docker build -t 이미지명[:태그] Dockerfile_Path # 이미지 생성
 ```
 
 ## 컨테이너 배포
@@ -167,7 +205,6 @@ Dockerfile build -> image (create)
 ```bash
   docker cp ./db.bak viv-sql:/home
   docker exec -u 0 -it viv-sql bash
-
   chmod 644 *.*
   chown root:root *.*
 ```
@@ -177,7 +214,7 @@ Dockerfile build -> image (create)
 `/Users/<whowmi>/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw`
 
 
-## Remove Docker
+## Complete Remove Docker
 
 ```bash
   sudo rm -Rf /Applications/Docker.app
@@ -206,3 +243,75 @@ Dockerfile build -> image (create)
   sudo rm -Rf ~/Library/Saved\ Application\ State/com.electron.docker-frontend.savedState
   sudo rm -f ~/Library/Preferences/com.electron.docker-frontend.plist
 ```
+
+## Network
+
+```bash
+
+  # Create Network
+  $ docker network create --driver bridge aplpine-net
+  $ docker network ls
+  $ docker network inspect aplpine-net
+  $ docker network rm aplpine
+
+  $ docker run -dit --name alpine1 --network aplpine-net alpine ash
+  $ docker network connect bridge aplpine4
+```
+
+## Commands
+
+```bash
+  
+  # Docker without sudo (Linux system)
+  $ (sudo groupadd docker)
+  $ sudo usermod -aG docker $USER
+  # or 
+  $ sudo groupadd docker
+  $ sudo gpasswd -a $USER docker
+  # or
+  $ sudo setfacl -m user:$USER:rw /var/run/docker.sock
+
+  # common
+  $ docker ps
+  $ docker ps -a
+  $ docker container ls -a
+  $ docker start [container_id]
+  $ docker attach [container_id]
+  $ docker stop [container_id]
+  $ docker exec -it [container_id] /bin/bash
+
+  # Start container automatically
+  $ docker run -d --restart unless-stopped redis
+  # Changes the restart policy for an already running container name redis
+  $ docker update --restart unless-stopped redis
+
+  # Ensures all  running containers restart
+  $ docker update --restart unless-stopped $(docker ps -q)
+
+
+  # prune
+
+  $ sudo docker system df
+
+  # image
+  $ docker image prune
+  $ docker image prune -a
+  $ docker images prune -f
+
+  # volumes
+  $ docker volume prune
+
+  # networks
+  $ docker network prune
+
+  # everything
+  $ docker system prune
+  $ docker system prune
+
+  $ sudo docker container prune -f
+  $ sudo docker buildx prune -f
+
+  # docker compose
+  $ sudo apt-get install docker-compose-plugin
+```
+
