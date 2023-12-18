@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
-LABEL maintainer="Kim Bum Jun <bm@live.co.kr>"
+LABEL maintainer="Kim Bum Jun"
 # install apache
 RUN apt-get update \ 
     && apt-get install -y apache2

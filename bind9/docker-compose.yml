@@ -2,16 +2,16 @@ version: '3'
 
 services:
   bind9:
-    image: ubuntu/bind9
-    container_name: bind9
+    container_name: viv-dns
+    image: ubuntu/bind9:latest
     environment:
       - BIND9_USER=root
       - TZ=Asia/Seoul
     ports:
-      - '53:53'
-      - '53:53/udp'
+      - "53:53"
+      - "53:53/udp"
     volumes:
-      - ./config:/etc/bind
-      - ./cache:/var/cache/bind
-      - ./records:/var/lib/bind
+      - /Users/vivakr/Docker/Dns/config:/etc/bind
+      - /Users/vivakr/Docker/Dns/cache:/var/cache/bind
+      - /Users/vivakr/Docker/Dns/records:/var/lib/bind
     restart: unless-stopped
