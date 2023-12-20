@@ -1,20 +1,15 @@
-# syntax=docker/dockerfile:1
-
 FROM ubuntu:latest
-# 앞에 명령이 성공한 후 에 뒷 명령실행
-# build 시 실행되는 명령어
 RUN apt-get update
-RUN apt-get install python3 -y
-# mkdir -p /var/www/html
-WORKDIR /var/www/html  
 
-COPY ["index.html", "."]
-# echo "Hello, <strong>Docker</strong>" > index.html
 
-# python3 -m http.server
-# 컨테이너가 실행될때 실행되는 명령어
-CMD [ "python3", "-u", "-m", "http.server"]
+#! (Apple M1) docker build -t ubuntu --platform linux/arm64/v8
 
-# docker build -t web-server-build . 
-# docker rm --force web-server    
-# docker run -p 12345:7000 --name web-server web-server-build
+# docker run -it --name ubuntu ubuntu-vv:latest
+
+# docker run -td --name viv-ubuntu ubuntu-vv:latest
+
+#! docker run -td --privileged --name viv-ubuntu --restart unless-stopped --hostname viv -e 'TZ=Asia/Seoul' -p 59222:22 -p 53:53 -p 53:53/udp viv-ubuntu:latest /sbin/init
+
+# docker-compose -f dockerfile.yml up -d --no-recreate
+
+# docker commit $ContainerID <ImageName>

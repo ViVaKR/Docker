@@ -14,7 +14,7 @@
 * MCR (Microsoft Container Registry) : 마이크로소프트가 제공하는 컨테이너 이미지 공식 소스.
   * [Go To MCR](https://hub.docker.com/_/microsoft-dotnet/)
 
-## Dockerfile
+## Dockerfile : 도커 이미지 정의 명세
 
 * 이미지를 생성하는 명령 세트를 정의 하는 파일.
 * 이미지를 다시 빌드할 때는 변경된 계층만 다시 빌드됨.
@@ -315,3 +315,162 @@ Dockerfile build -> image (create)
   $ sudo apt-get install docker-compose-plugin
 ```
 
+
+
+## Docker Search
+
+```bash
+  $ docker search httpd
+  $ docker pull httpd
+
+  $ docker login
+  # -> UserName
+  # -> Password
+  # ~/.docker/config.json 
+
+  # push
+  $ docker tag nginx:latest vivabm/nginx:latest
+  $ docker push vivabm/nginx:latest
+
+
+```
+
+## Registry : 컨테이너 이미지를 저장하는 저장소
+
+[Docker Hub](https://hub.docker.com)
+
+- Public  : 공개
+  - Official
+  - Verified 
+  - etc
+- Private : 사내의 컨테이너 저장소
+
+```bash
+ #  docker registry
+ $ docker run -d -p 6543:5000 --restart always --name registry registry:2
+ $ docker tag nginx:latest localhost:6543/nginx:latest
+
+ # [ Image Repository ] #
+ # (use 1) localhost:6543/nginx:latest
+ # (use 2) docker.example.com:6543/nginx:latest
+ $ docker push localhost:6543/nginx:latest
+
+# 이미지 확인
+ $ curl -X GET http://localhost:6543/v2/_catalog
+
+ # 태그 정보 확인
+ $ curl -X GET http://localhost:6543/v2/nginx/tags/list
+```
+
+## 컨테이너 라이프 사이클
+
+- docker HOST
+- docker Registry
+- docker pull
+- docker run
+
+1. 컨테이너 이미지 사용
+   - $ docker search
+   - $ docker pull
+   - $ docker images
+   - $ docker inspect
+   - $ docker rmi
+2. 컨테이너 실행 및 종료 
+3. 동작중인 컨테이너 관리
+
+
+```bash
+
+  # Search
+  $ docker search nginx --limit 5
+  $ docker search nginx --filter=stars=100
+
+  # Pull
+  $ docker pull
+  $ docker images
+  $ docker images --no-trunc
+
+  # 컨테이너로 생성
+  # docker create [옵션] <이미지이름:태그명>
+  # create 명령어는 기본 백그라운드로 실행됨
+  # tag -> latest 는 태그명 생략 가능
+  $ docker create --name webserver -h webserver -p 11111:80 nginx:tagname
+
+  # 컨테이너 실행
+  # docker start [option] 컨테이너이름
+  $ docker start webserver
+  $ curl localhost:11111  # macos
+
+
+  # 컨테이너 생성 및 실행 
+  # docker run [옵션] <이미지이름:태크명>
+  # run (pull + create + start)
+  $ docker run --name webserver -d nginx:tagName
+
+  # 실행중인 컨테이너 관리 명령어 모음
+  $ docker ps -a # (-a) 실행중이 아닌 컨테이너 까지 확인, 
+  $ docker ps -aq # Container ID 만 보여줌
+  $ docker top webserver # docker process check
+  $ docker logs -f webserver # follow, 실시간 모니터링 (-f )
+  $ docker exec -it webserver /bin/bash  # (-i) interactive, (-t) pseudo-tty
+  $ docker attach webserver # 포그라운드로 실행중인 컨테이너 연결
+  $ docker cp [옵션] CONTAINER:SRC_PATH  DEST_PATH
+  $ docker cp [옵션] SRC_PATH  CONTAINER:DEST_PATH
+
+  # eginx root html location
+  # `cd /usr/share/nginx/html/`
+
+  # 상태 확인 (컨테이너명 or 이미지명)
+  $ docker inspect webserver
+  # Inspect Get IPAddress
+  $ docker inspect --format '{{.NetworkSettings.IPAddress}}' webserver
+  $ docker inspect  --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' webserver
+
+  # 컨테이너 중지
+  $ docker stop webserver
+
+  # 컨테이너 삭제
+  # docker stop [옵션] 컨테이너 이름
+  $ docker rm webserver
+
+```
+
+## (macos) `settings.json`  file localtion
+`/Users/vivakr/Library/Group Containers/group.com.docker`
+
+## `daemon.json` location
+* macos : `~/.docker/daemon.json `
+* windows : `%USERPROFILE%\.docker\daemon.json`
+* linux : `/etc/docker/daemon.json`
+
+## 컨테이너 리소스 관리
+
+1. CPU
+  * cpus : 컨테이너에 할당할 CPU Core 수를 지정, 
+  * cpuset-cpus : 컨테이너가 사용할 수 있는 CPU 나 코어를 할당. CPU Index 는 0 부터
+  * cpu-share : 컨테이너가 사용하는 CPU 비중을 1024 값을 을 기반으로 설정, 가중치
+2. Memory
+  * --memory, -m : 컨테이너가 사용할 최대 메모리 양
+  * --memory-swap : 컨테이너가 사용할 최대 메모리, 생략시 2배 (스왑 - 메모리 => 스왑 메모리)
+  * --oom-kill-disable : OOM (Out Of Memory) Killer 가 프로세스를 Kill 하지 못하도록 보호
+  * --memory-reservation : --memory 값보다 적은 값으로 구성하는 소프트 제한 값 설정, 보장
+3. Block I/O
+
+```bash
+  # CPU
+  $ docker run -d --cpus=".5" nginx:latest
+  $ docker run -d --cpu-shares 2048 nginx:latest
+  $ docker run -d --cpuset-cpus 0-3 nginx:latest
+
+  # Memory (b, k, m, g)
+  $ docker run -d -m 512m nginx:latest
+  $ docker run -d -m 1g --memory-reservation 500m nginx:latest
+  $ docker run -d -m 200m --memory-swap 300m nginx:latest
+  $ docker run -d -m 200m --oom-kill-disable nginx:latest
+```
+
+## Container Storage
+
+1. 컨테이너 볼륨 : `Union File System`, `Overlay`
+   * 컨테이너 이미지는 ReadOnly, 컨테이너에 추가 되는 데이터들은 별도의 RW 레이어에 저장됨
+2. 컨테이너 데이터 공유
