@@ -1,16 +1,10 @@
-FROM ubuntu:22.04
-LABEL maintainer="Kim Bum Jun"
-# install apache
-RUN apt-get update \ 
-    && apt-get install -y apache2
-RUN echo "TEST WEB" > /var/www/html/index.html
-EXPOSE 80
-CMD [ "/usr/sbin/apache2ctl", "-DFOREGROUND" ]
+FROM ubuntu:latest
+ADD df.sh /bin/df.sh
+RUN chmod +x /bin/df.sh
+ENTRYPOINT [ "/bin/df.sh" ]
 
-# 빌드 및 확인
-# docker build -t viv-httpd:v1 .
-# docker run -d -80:80 --name viv-httpd viv-httpd:v1
-# curl localhost:80
+# ! 컨테이너간의 데이터 공유 #
+# docker build -t vivabm/df:latest .
 
-#! 삭제
-#* docker rm -f viv-httpd
+#! nginx container shared
+# docker run -v /Users/vivakr/Docker/EginX/44440/html:/webdata -d --restart unless-stopped --name viv-df -h vivdf vivabm/df:latest
