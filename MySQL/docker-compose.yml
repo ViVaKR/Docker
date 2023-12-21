@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   db:
-    image: mysql
+    image: mysql:latest
     container_name: viv-mysql
     hostname: mysql
     ports:
@@ -11,11 +11,15 @@ services:
       - --default-authentication-plugin=mysql_native_password
       - --character-set-server=utf8mb4 # 한글설정 1
       - --collation-server=utf8mb4_unicode_ci # 한글설정 2
-    restart: always
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: "B9037!m8947#"
+      MYSQL_ROOT_PASSWORD: "<루트비밀번호>"
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: "<비밀번호>"
+      TZ: Asia/Seoul
     volumes:
-      - /Users/vivakr/Docker/MySQL/Data:/var/lib/mysql
+      - ~/Docker/MySQL/Data:/var/lib/mysql
 
 
 ## 1. run ##

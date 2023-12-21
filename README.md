@@ -514,44 +514,44 @@ hub.docker.com : 컨테이너 웹 저장소
 컨테이너 애플리케이션
 아이솔레이트 된 공간의 작은 용량, 확장성이 매우 좋음
 
-## 리눅스 환경이 필요한 이유
-
-- 리눅스 커널의 기능이 필요
-- 커널
-  - Storage
-    - Device Mapper
-    - Btrfs
-    - Aufs
-  - namespaces
-    - PID
-    - MNT
-    - IPC
-    - UTS
-    - NET
-  - Networking
-    - veth
-    - bridge
-    - iptages
-
-1. chroot : 독립된 공간 형성
-2. namespace : isolate 기능 지원 (6개)
-3. cgroup : 필요한 만큼의 HW 지원
-
-윈도우, 맥 : Hypervisor 활성화 필요
-
-개발자가 만들 그대로 어디에서든 돌아감
-확장/축소가 쉽고 MSA, Devops 에 적합함
-개발환경과 운영환경의 차이점 극복
-
-## 도커 설치
-
-- Windows
-  - hub.docker.com 계정 등록
-  - Docker Desktop 설치 : Hyper-V, WSL2 (Windoes Subsystem for Linux v.2) 활성화 됨
-
-
-
 
 ## 컨테이너간 통신 (네트워크)
 1. 컨테이너는 어떻게 통신하는가?
-2. 컨ㅔ이너 
+2. 컨테이너 포트 외부 노출
+3. 컨테이너 네트워크 추가
+4. 컨테이너 간 통신
+
+* Container Network Model
+* docker0
+  * virtual ethernet bridge : 172.17.0.0/16
+  * L2 통신기반
+  * container 생성시 veth 인터페이스 생성(sandbox)
+  * 모든 컨테이너는 외부 통신을 docker0 (gateway, 172.17.0.1)를 통해 진행
+  * container running 시 `172.17.x,y` 대역 범위에 IP 할당
+
+
+## 컨테이너 네트워크 추가, Create User Define Network (사용자 정의 네트워크)
+
+```bash
+  # get list 
+  $ docker network ls
+
+  # create example
+  $ docker network create --driver bridge --subnet 192.168.100.0/24 --gateway 192.168.100.254 vivakrnet
+  $ docker inspect network vivakrnet
+
+  # create network with user defined network example, asign static ip address
+  $ docker run -it --name demo --net vivakrnet --ip 192.168.100.100 busybox
+
+  # check
+  $ ip addr 
+  #--> inet 192.168.100.100
+  $ ping 8.8.8.8
+
+  # remove network
+  $ docker network rm vivakrnet
+```
+
+
+## 컨테이너간의 통신
+
