@@ -282,6 +282,7 @@ Dockerfile build -> image (create)
 
   # Start container automatically
   $ docker run -d --restart unless-stopped redis
+
   # Changes the restart policy for an already running container name redis
   $ docker update --restart unless-stopped redis
 
@@ -290,8 +291,18 @@ Dockerfile build -> image (create)
 
 
   # prune
-
   $ sudo docker system df
+
+  # 사용되지 않는 컨테이너 확인
+  $ docker ps --filter status=exited --filter status=dead -q
+
+  # 모든 컨테이너 제거
+  $ docker stop $(docker ps -q)
+  $ docker container prune
+
+  # 다른 옵션
+  $ docker rm $(docker ps -a -q)
+
 
   # image
   $ docker image prune
@@ -309,7 +320,7 @@ Dockerfile build -> image (create)
   $ docker system prune
 
   $ sudo docker container prune -f
-  $ sudo docker buildx prune -f
+  $ sudo docker builder prune -f
 
   # docker compose
   $ sudo apt-get install docker-compose-plugin
@@ -552,6 +563,58 @@ hub.docker.com : 컨테이너 웹 저장소
   $ docker network rm vivakrnet
 ```
 
-
 ## 컨테이너간의 통신
 
+## 빌드에서 운영까지
+
+1. `docker-compose` 개요
+   * 여러 컨테이너를 일괄적으로 정의하고 실행할 수 있는 툴
+   * 하나의 서비스를 운영하기 위해서는 여러개의 애플리케이션이 동작해야함
+   * 컨테이너화 된 애플리케이션들을 통합 관리할 수 있음
+   * YML 형식
+
+2. `docker-compose` syntax
+   * version : 사용할 버전
+   * service : 컴포즈를 이용하여 실행ㅎ라 컨테이너 옵션을 정의
+   * build : 컨테이너 빌드
+   * image : 컴포즈를 통해 실행할 이미지를 지정
+   * command : 컨테이너에서 실행될 명령어 지정
+   * port : 컨테이너가 공개하는 포트를 나열
+   * link : 다른 컨테이너와 연계할 때 컨테이너 지정
+   * expose : 포트를 링크로 연계된 컨테이너에게만 공개할 포트
+   * volumes : 컨테이너에 볼륨을 마운트
+   * environment : 
+   * restart : 컨테이너가 종료될 때 적용할 restart 정책 (no, always, on-failure)
+   * depends_on : 컨테이너 간의 종속성을 정의, 정의한 컨테이너가 먼저 동작 되어야 함
+
+```bash
+ $ docker-compose up -d
+ $ docker-compose ps
+ $ docker-compose scale mysql=2
+ $ docker-compose down # 리소스 삭제
+
+ # config, up, ps, logs, start, stop, restart, pause, port, kill, rm, down
+
+ # 다른 경로의 컴포즈 실행 : -f option
+ $ docker-compose -f /other-dir/docker-compose.yml
+
+ $ docker-compose run 서비스이름 실행 명령어
+ $ docker-compose logs 서비스명
+
+```
+
+## 빌드에서 운영까지
+
+1. 서비스 디렉토리 생성
+2. 빌드를 위한 `Dockerfile` 생성
+3. `docker-compose.yml` 생성
+4. `docker-compose` command 실행
+
+## Registry
+
+```bash
+
+$ curl -XGET localhost:6543/v2/_catalog
+# --> {"repositories":["<container>"]}
+
+```
