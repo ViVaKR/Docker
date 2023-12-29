@@ -291,7 +291,7 @@ Dockerfile build -> image (create)
 
 
   # prune
-  $ sudo docker system df
+  $ docker system df
 
   # 사용되지 않는 컨테이너 확인
   $ docker ps --filter status=exited --filter status=dead -q
@@ -299,10 +299,8 @@ Dockerfile build -> image (create)
   # 모든 컨테이너 제거
   $ docker stop $(docker ps -q)
   $ docker container prune
-
-  # 다른 옵션
+  # or
   $ docker rm $(docker ps -a -q)
-
 
   # image
   $ docker image prune
@@ -317,16 +315,12 @@ Dockerfile build -> image (create)
 
   # everything
   $ docker system prune
-  $ docker system prune
 
-  $ sudo docker container prune -f
   $ sudo docker builder prune -f
 
   # docker compose
   $ sudo apt-get install docker-compose-plugin
 ```
-
-
 
 ## Docker Search
 
