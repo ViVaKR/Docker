@@ -11,7 +11,7 @@ services:
       - 59673:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: viv
-      MONGO_INITDB_ROOT_PASSWORD: Viv8947
+      MONGO_INITDB_ROOT_PASSWORD: "B9037!m8947#"
 
   # mongo-express:
   #   image: mongo-express
