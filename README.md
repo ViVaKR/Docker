@@ -31,24 +31,48 @@
     RUN ["명령어", "인자1", "인자2"] : 빌드시 명령어 지정
     ENTRYPOINT ["명령어", "인자1", "인자2] : 컨테이너에서 항상 실행될 명령어설정, 종료시 컨테이너도 종료
     CMD ["명령어", "인자1", "인자2"] : 컨테이너 실행시 최초 일회 실행될 명령어 설정
-    EXPOSE [Port]/[Protocol(option)] : 서비스할 포트 지정
+    EXPOSE [Port]/[Protocol(option)] : 서비스 하는 포트 지정
     ADD [호스트 파일] [저장경로]
-    WORKDIR [경로] : 명령어가 실행될 작업 디렉토를 지정
-    ENV [키] [값] : 환경변수 설정  >>> LABEL [키]=[값] : key value lebel, meta data
+    COPY 
+    WORKDIR [경로] : 명령어가 실행될 작업 디렉토를 지정 RUN, CMD, ENTRYPOIN 등의 커맨드를 실행하는 디렉토리 지정 -w 오버라이딩 가능
+    VOLUME 호스트의 디렉토리를 토커 컨테이너에 연결, 데이터 백업용으로 사용, 데이터베이스 데이터 파일과 같은 경우
+    ENV [키] [값] : 환경변수 설정
+    LABEL [키]=[값] : key value lebel, meta data
     USR [UID]:[GID] : 사용자 지정
-    ARG [Key]=[Value] : docker build argumene option 을 넘겨줄 환경값 지정
+    ARG [Key]=[Value] : docker build argumene option 을 넘겨줄 환경값 지정할
+    STOPSIGNAL
+    HEALTHCHECK
+    SHELL
 ```
 
-## Build
+## Docker build
+
+* Dockerfile 을 통하여 이미지를 만들기 위하여 실행하는 명령어
+* 형식 `docker build ${Option} ${Dockerfile Directory}`
 
 ```bash
-    $ docker build -t hello-docker:1.0.0 .
-    $ docker image history **head-image-id-take-3**
-    $ docker run --name container-naming -p 4680:80 hello-docker:1.0.0
-    # browser -> localhost:4680 -> (hit enter)
-    # after changed html -> docker stop ps-id & docker rmi image-id
-    #goto (no.1) with change version number
-    $ docker pull my-docker-id/images-name
+    docker build -t hello-docker:ver .
+    docker image history **head-image-id-take-3**
+```
+
+## Docker run
+
+* Docker Image 로 부터 컨테이너 생성을 위하여 실행하는 명령어
+
+```bash
+  docker run --name container-naming -p 4680:80 hello-docker:1.0.0
+  # browser -> localhost:4680 -> (hit enter)
+  # after changed html -> docker stop ps-id & docker rmi image-id
+  # goto (no.1) with change version number
+
+```
+
+## Docker push
+  
+## Docker pull
+
+```bash
+  docker pull my-docker-id/images-name
 ```
 
 ## Docker Instructions
