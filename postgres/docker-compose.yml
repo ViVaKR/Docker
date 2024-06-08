@@ -4,17 +4,19 @@ services:
   db:
     image: postgres:latest
     restart: always
-    container_name: viv-postgres
+    container_name: viv-postgresql
     environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      POSTGRES_USER: vivakr
+      POSTGRES_PASSWORD: vivakr
+      POSTGRES_DB: vivakr
+      TZ: 'Asia/Seoul'
     ports:
       - 59073:5432
     volumes:
-      - /Users/vivakr/Docker/Postgres/Data:/var/lib/postgresql/data
+      - ~/Docker/Postgres/Data:/var/lib/postgresql/data
 
   # adminer:
   #   image: adminer
   #   restart: always
   #   ports:
   #     - 8080:8080
-

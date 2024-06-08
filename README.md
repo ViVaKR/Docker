@@ -12,7 +12,7 @@
 * 레지스트리의 이미지에서 바로 컨테이너를 생성할 수 있음.
 * Docker Hub : 공용 레지스트리
 * MCR (Microsoft Container Registry) : 마이크로소프트가 제공하는 컨테이너 이미지 공식 소스.
-  * [Go To MCR](https://hub.docker.com/_/microsoft-dotnet/)
+    * [Go To MCR](https://hub.docker.com/_/microsoft-dotnet/)
 
 ## Dockerfile : 도커 이미지 정의 명세
 
@@ -77,25 +77,23 @@
 
 ## Docker Instructions
 
-`FROM` "FROM"을 사용하여 시작하려는 기본 이미지를 지정합니다.  
-`RUN` RUN은 이미지 빌드 프로세스 중에 명령을 실행하는 데 사용됩니다.  
-`ENV` 이미지 내에서 환경 변수를 설정하여 빌드 프로세스 중과 컨테이너가 실행되는 동안 모두 액세스할 수 있도록 합니다. 빌드 시간 변수만 정의해야 하는 경우 ARG 명령을 활용해야 합니다.  
-`COPY` COPY 명령은 호스트 시스템에서 Docker 이미지로 파일 또는 폴더를 복사하는 데 사용됩니다.  
-`EXPOSE` Docker 이미지가 런타임에 수신 대기할 포트를 지정하는 데 사용됩니다.  
-`ADD` COPY 명령의 고급 형식입니다. 호스트 시스템에서 docker 이미지로 파일을 복사할 수 있습니다. URL에서 Docker 이미지의 대상으로 파일을 복사하는 데 사용할 수도 있습니다. 실제로 이를 사용하여 호스트 시스템에서 tarball을 복사하고 도커 이미지의 대상으로 자동으로 추출할 수 있습니다.  
-`WORKDIR` 현재 작업 디렉터리를 설정하는 데 사용됩니다.  
-`VOLUME` Docker 컨테이너에 볼륨을 생성하거나 탑재하는 데 사용됩니다  
-`USER` 컨테이너를 실행할 때 사용자 이름과 UID를 설정합니다. 이 지시어를 사용하여 컨테이너의 루트가 아닌 사용자를 설정할 수 있습니다.  
-`LABEL` 도커 이미지의 메타데이터 정보 지정  
-`ARG` 빌드 타임에 ARG	키-값 쌍 변수를 정의합니다. 그러나 이러한 ARG 변수는 컨테이너가 실행 중일 때 액세스할 수 없습니다. 실행 중인 컨테이너 내에서 변수를 유지 관리하려면 대신 ENV 명령을 사용합니다.  
-`CMD` 실행 중인 컨테이너 내에서 명령을 실행합니다. 하나의 CMD 명령만 허용되며, 여러 명령이 있는 경우 마지막 명령어만 적용됩니다.  
-`ENTRYPOINT` Docker 컨테이너가 시작될 때 실행할 명령을 지정합니다. ENTRYPOINT를 지정하지 않으면 기본값은 "/bin/sh -c"입니다.  
-
+`FROM` "FROM"을 사용하여 시작하려는 기본 이미지를 지정합니다.
+`RUN` RUN은 이미지 빌드 프로세스 중에 명령을 실행하는 데 사용됩니다.
+`ENV` 이미지 내에서 환경 변수를 설정하여 빌드 프로세스 중과 컨테이너가 실행되는 동안 모두 액세스할 수 있도록 합니다. 빌드 시간 변수만 정의해야 하는 경우 ARG 명령을 활용해야 합니다.
+`COPY` COPY 명령은 호스트 시스템에서 Docker 이미지로 파일 또는 폴더를 복사하는 데 사용됩니다.
+`EXPOSE` Docker 이미지가 런타임에 수신 대기할 포트를 지정하는 데 사용됩니다.
+`ADD` COPY 명령의 고급 형식입니다. 호스트 시스템에서 docker 이미지로 파일을 복사할 수 있습니다. URL에서 Docker 이미지의 대상으로 파일을 복사하는 데 사용할 수도 있습니다. 실제로 이를 사용하여 호스트 시스템에서 tarball을 복사하고 도커 이미지의 대상으로 자동으로 추출할 수 있습니다.
+`WORKDIR` 현재 작업 디렉터리를 설정하는 데 사용됩니다.
+`VOLUME` Docker 컨테이너에 볼륨을 생성하거나 탑재하는 데 사용됩니다
+`USER` 컨테이너를 실행할 때 사용자 이름과 UID를 설정합니다. 이 지시어를 사용하여 컨테이너의 루트가 아닌 사용자를 설정할 수 있습니다.
+`LABEL` 도커 이미지의 메타데이터 정보 지정
+`ARG` 빌드 타임에 ARG	키-값 쌍 변수를 정의합니다. 그러나 이러한 ARG 변수는 컨테이너가 실행 중일 때 액세스할 수 없습니다. 실행 중인 컨테이너 내에서 변수를 유지 관리하려면 대신 ENV 명령을 사용합니다.
+`CMD` 실행 중인 컨테이너 내에서 명령을 실행합니다. 하나의 CMD 명령만 허용되며, 여러 명령이 있는 경우 마지막 명령어만 적용됩니다.
+`ENTRYPOINT` Docker 컨테이너가 시작될 때 실행할 명령을 지정합니다. ENTRYPOINT를 지정하지 않으면 기본값은 "/bin/sh -c"입니다.
 
 ## The Base Image
 
 `FROM node:18-alpine`
-
 
 ## Copying source code
 
@@ -115,11 +113,11 @@
 ```
 
 * Docker Compose (도커 컴포즈)
-  * 다수의 컨테이너의 통합 하여 어플리케이션을 구성할수 있음
-  * 많은 컨테이너의 복잡도를 단순화 시킴
-  * 세부적인 서비스 설정이 가능
-  * **docker-compose.yaml** 파일을 사용함
-  * 복수의 이미지 + 복수의 컨테이너 -> 프로젝트 구성 및 배포
+    * 다수의 컨테이너의 통합 하여 어플리케이션을 구성할수 있음
+    * 많은 컨테이너의 복잡도를 단순화 시킴
+    * 세부적인 서비스 설정이 가능
+    * **docker-compose.yaml** 파일을 사용함
+    * 복수의 이미지 + 복수의 컨테이너 -> 프로젝트 구성 및 배포
 
 ### 작성
 
@@ -140,10 +138,10 @@
 
 ## Dockerignore
 
-- name : `.dockerignore`
-- contents ex:
-  .git  
-  .gitignore  
+* name : `.dockerignore`
+* contents ex:
+  .git
+  .gitignore
   npm-debug.log
   Dockerfile*
   docker-compose*
@@ -200,8 +198,8 @@
 
 ## 도커이미지
 
-image -> run  
-dontainer commit -> image (backup)  
+image -> run
+dontainer commit -> image (backup)
 Dockerfile build -> image (create)
 
 ## commit/build : 이미지가 생성됨
@@ -221,8 +219,8 @@ Dockerfile build -> image (create)
 ## Docker Registry
 
 * Registry : 컨테이너 이미지를 저장하는 저장소
-  * Docker Hub : hub.docker.com
-  * Private Registry : 사내의 컨테이너 저장소
+    * Docker Hub : hub.docker.com
+    * Private Registry : 사내의 컨테이너 저장소
 
 ## Restore
 
@@ -236,7 +234,6 @@ Dockerfile build -> image (create)
 ## `Docker.raw` file location
 
 `/Users/<whowmi>/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw`
-
 
 ## Complete Remove Docker
 
@@ -285,11 +282,11 @@ Dockerfile build -> image (create)
 ## Commands
 
 ```bash
-  
+
   # Docker without sudo (Linux system)
   $ (sudo groupadd docker)
   $ sudo usermod -aG docker $USER
-  # or 
+  # or
   $ sudo groupadd docker
   $ sudo gpasswd -a $USER docker
   # or
@@ -355,7 +352,7 @@ Dockerfile build -> image (create)
   $ docker login
   # -> UserName
   # -> Password
-  # ~/.docker/config.json 
+  # ~/.docker/config.json
 
   # push
   $ docker tag nginx:latest vivabm/nginx:latest
@@ -368,11 +365,11 @@ Dockerfile build -> image (create)
 
 [Docker Hub](https://hub.docker.com)
 
-- Public  : 공개
-  - Official
-  - Verified 
-  - etc
-- Private : 사내의 컨테이너 저장소
+* Public  : 공개
+    * Official
+    * Verified
+    * etc
+* Private : 사내의 컨테이너 저장소
 
 ```bash
  #  docker registry
@@ -393,20 +390,19 @@ Dockerfile build -> image (create)
 
 ## 컨테이너 라이프 사이클
 
-- docker HOST
-- docker Registry
-- docker pull
-- docker run
+* docker HOST
+* docker Registry
+* docker pull
+* docker run
 
 1. 컨테이너 이미지 사용
-   - $ docker search
-   - $ docker pull
-   - $ docker images
-   - $ docker inspect
-   - $ docker rmi
-2. 컨테이너 실행 및 종료 
+   * $ docker search
+   * $ docker pull
+   * $ docker images
+   * $ docker inspect
+   * $ docker rmi
+2. 컨테이너 실행 및 종료
 3. 동작중인 컨테이너 관리
-
 
 ```bash
 
@@ -431,13 +427,13 @@ Dockerfile build -> image (create)
   $ curl localhost:11111  # macos
 
 
-  # 컨테이너 생성 및 실행 
+  # 컨테이너 생성 및 실행
   # docker run [옵션] <이미지이름:태크명>
   # run (pull + create + start)
   $ docker run --name webserver -d nginx:tagName
 
   # 실행중인 컨테이너 관리 명령어 모음
-  $ docker ps -a # (-a) 실행중이 아닌 컨테이너 까지 확인, 
+  $ docker ps -a # (-a) 실행중이 아닌 컨테이너 까지 확인,
   $ docker ps -aq # Container ID 만 보여줌
   $ docker top webserver # docker process check
   $ docker logs -f webserver # follow, 실시간 모니터링 (-f )
@@ -465,24 +461,26 @@ Dockerfile build -> image (create)
 ```
 
 ## (macos) `settings.json`  file localtion
+
 `/Users/vivakr/Library/Group Containers/group.com.docker`
 
 ## `daemon.json` location
-* macos : `~/.docker/daemon.json `
+
+* macos : `~/.docker/daemon.json`
 * windows : `%USERPROFILE%\.docker\daemon.json`
 * linux : `/etc/docker/daemon.json`
 
 ## 컨테이너 리소스 관리
 
 1. CPU
-  * cpus : 컨테이너에 할당할 CPU Core 수를 지정, 
-  * cpuset-cpus : 컨테이너가 사용할 수 있는 CPU 나 코어를 할당. CPU Index 는 0 부터
-  * cpu-share : 컨테이너가 사용하는 CPU 비중을 1024 값을 을 기반으로 설정, 가중치
+* cpus : 컨테이너에 할당할 CPU Core 수를 지정,
+* cpuset-cpus : 컨테이너가 사용할 수 있는 CPU 나 코어를 할당. CPU Index 는 0 부터
+* cpu-share : 컨테이너가 사용하는 CPU 비중을 1024 값을 을 기반으로 설정, 가중치
 2. Memory
-  * --memory, -m : 컨테이너가 사용할 최대 메모리 양
-  * --memory-swap : 컨테이너가 사용할 최대 메모리, 생략시 2배 (스왑 - 메모리 => 스왑 메모리)
-  * --oom-kill-disable : OOM (Out Of Memory) Killer 가 프로세스를 Kill 하지 못하도록 보호
-  * --memory-reservation : --memory 값보다 적은 값으로 구성하는 소프트 제한 값 설정, 보장
+* --memory, -m : 컨테이너가 사용할 최대 메모리 양
+* --memory-swap : 컨테이너가 사용할 최대 메모리, 생략시 2배 (스왑 - 메모리 => 스왑 메모리)
+* --oom-kill-disable : OOM (Out Of Memory) Killer 가 프로세스를 Kill 하지 못하도록 보호
+* --memory-reservation : --memory 값보다 적은 값으로 구성하는 소프트 제한 값 설정, 보장
 3. Block I/O
 
 ```bash
@@ -507,28 +505,27 @@ Dockerfile build -> image (create)
      * `$ docker run -d -v /webdata:/var/www/html:ro httpd:latest`
 2. 컨테이너 데이터 공유
 
-
 ## Container (컨테이너)
 
-- 컨테이너는 하나의 Application Process
-- 각각의 컨테이너는 완벽하게 Isolate 되어 있음
-- Docker Host (커널) -> Isolated Containers
-- 컨테이너에는 기본적인 설비가 있음 : base image (uuid) -> source image -> 동작 레이어
+* 컨테이너는 하나의 Application Process
+* 각각의 컨테이너는 완벽하게 Isolate 되어 있음
+* Docker Host (커널) -> Isolated Containers
+* 컨테이너에는 기본적인 설비가 있음 : base image (uuid) -> source image -> 동작 레이어
 
 ## 용어
 
-- Container Image
-- Container
-- Docker Host (Linux Kernel)
-- Docker Daemon
-  - systemctl start docker
-- Docker Client Command
-  - $ docker search nginx : 이미지 검색  
-  - $ docker pull nginx : 컨테이너 이미지 다운로드  
-  - $ docker run -d --name web -p 80:80 nginx:latest : 실행  
-- Docker Hub
-- Container Images
-- Container : 동작중인 컨테이너 (읽기/쓰기)
+* Container Image
+* Container
+* Docker Host (Linux Kernel)
+* Docker Daemon
+    * systemctl start docker
+* Docker Client Command
+    * $ docker search nginx : 이미지 검색
+    * $ docker pull nginx : 컨테이너 이미지 다운로드
+    * $ docker run -d --name web -p 80:80 nginx:latest : 실행
+* Docker Hub
+* Container Images
+* Container : 동작중인 컨테이너 (읽기/쓰기)
 
 hub.docker.com : 컨테이너 웹 저장소
 
@@ -543,8 +540,8 @@ hub.docker.com : 컨테이너 웹 저장소
 컨테이너 애플리케이션
 아이솔레이트 된 공간의 작은 용량, 확장성이 매우 좋음
 
-
 ## 컨테이너간 통신 (네트워크)
+
 1. 컨테이너는 어떻게 통신하는가?
 2. 컨테이너 포트 외부 노출
 3. 컨테이너 네트워크 추가
@@ -552,17 +549,16 @@ hub.docker.com : 컨테이너 웹 저장소
 
 * Container Network Model
 * docker0
-  * virtual ethernet bridge : 172.17.0.0/16
-  * L2 통신기반
-  * container 생성시 veth 인터페이스 생성(sandbox)
-  * 모든 컨테이너는 외부 통신을 docker0 (gateway, 172.17.0.1)를 통해 진행
-  * container running 시 `172.17.x,y` 대역 범위에 IP 할당
-
+    * virtual ethernet bridge : 172.17.0.0/16
+    * L2 통신기반
+    * container 생성시 veth 인터페이스 생성(sandbox)
+    * 모든 컨테이너는 외부 통신을 docker0 (gateway, 172.17.0.1)를 통해 진행
+    * container running 시 `172.17.x,y` 대역 범위에 IP 할당
 
 ## 컨테이너 네트워크 추가, Create User Define Network (사용자 정의 네트워크)
 
 ```bash
-  # get list 
+  # get list
   $ docker network ls
 
   # create example
@@ -573,7 +569,7 @@ hub.docker.com : 컨테이너 웹 저장소
   $ docker run -it --name demo --net vivakrnet --ip 192.168.100.100 busybox
 
   # check
-  $ ip addr 
+  $ ip addr
   #--> inet 192.168.100.100
   $ ping 8.8.8.8
 
@@ -601,7 +597,7 @@ hub.docker.com : 컨테이너 웹 저장소
    * link : 다른 컨테이너와 연계할 때 컨테이너 지정
    * expose : 포트를 링크로 연계된 컨테이너에게만 공개할 포트
    * volumes : 컨테이너에 볼륨을 마운트
-   * environment : 
+   * environment :
    * restart : 컨테이너가 종료될 때 적용할 restart 정책 (no, always, on-failure)
    * depends_on : 컨테이너 간의 종속성을 정의, 정의한 컨테이너가 먼저 동작 되어야 함
 
@@ -620,8 +616,6 @@ hub.docker.com : 컨테이너 웹 저장소
  $ docker-compose logs 서비스명
 
 ```
-
-## 빌드에서 운영까지
 
 1. 서비스 디렉토리 생성
 2. 빌드를 위한 `Dockerfile` 생성
