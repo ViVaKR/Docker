@@ -8,20 +8,18 @@ services:
     ports:
       - 59073:3306
     command:
-      - --default-authentication-plugin=mysql_native_password
       - --character-set-server=utf8mb4 # 한글설정 1
       - --collation-server=utf8mb4_unicode_ci # 한글설정 2
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: "<루트비밀번호>"
+      MYSQL_ROOT_PASSWORD: '<루트비밀번호>'
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
-      MYSQL_PASSWORD: "<비밀번호>"
+      MYSQL_PASSWORD: '<비밀번호>'
       TZ: Asia/Seoul
     volumes:
       - ~/Docker/MySQL/Data:/var/lib/mysql
-
-
+    platform: linux/x86_64
 ## 1. run ##
 # $ docker-compose up -d
 
