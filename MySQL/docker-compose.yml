@@ -1,36 +1,51 @@
-version: '3.8'
+# 1. Docker Desktop 실행
+# 2. 설정 -> 일반에서 -> WSL 2 기반의 엔진 사용 체크
+# 3. 설정 -> 리소스 -> WSL 인테그레이션 -> 기본 distro 통합 체크, 우분투 (WSL) 버전 체크
+
+## // ============= docker-compose.yml ================== //
+version: "3.8"
 
 services:
   db:
-    image: mysql:latest
-    container_name: viv-mysql
-    hostname: mysql
+    image: mysql:latest # 원하는 버전으로 변경 가능, latest는 최신버전
+    container_name: viv-mysql # 컨테이너 이름으로 원하는 이름으로 변경 가능, 중복되면 안됨.
+    hostname: mysql # 도커 내부에서 사용할 호스트 이름, 원하는 이름으로 변경 가능.
     ports:
-      - 59073:3306
+      - 59073:3306 # 포트번호 변경 가능 보안을 위해 59073 부분을 10_000 ~ 65_535 사이 매우 당돌한 번호로 지정 권장 단, 중복되면 안됨.
     command:
       - --character-set-server=utf8mb4 # 한글설정 1
       - --collation-server=utf8mb4_unicode_ci # 한글설정 2
-    restart: unless-stopped
+    restart: unless-stopped # 컨테이너 재시작 정책, 즉, 껏다 켜도 계속 켜져있음.
     environment:
-      MYSQL_ROOT_PASSWORD: '<루트비밀번호>'
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: '<비밀번호>'
-      TZ: Asia/Seoul
+      MYSQL_ROOT_PASSWORD: "<루트비밀번호>" # <루트비밀번호>라고 동일하게 하지 않길 바램..
+      MYSQL_DATABASE: wordpress # 루트 대신 대행자를 위해 필요, 예시는 워드프레스 설치시 사용할 데이터베이스 이름 예시일뿐, 즉, 원하는 데이터베이스 이름으로 변경 가능.
+      MYSQL_USER: wordpress # 위와 동, 워드프레스 설치시 사용할 데이터베이스 사용자 이름, 즉, 원하는 사용자 이름으로 변경 가능.
+      MYSQL_PASSWORD: "<비밀번호>" # 같은 맥락으로 <비밀번호>라고 동일하게 하지 않길 바램..
+      TZ: Asia/Seoul # 한국 시간대.
     volumes:
-      - ~/Docker/MySQL/Data:/var/lib/mysql
-    platform: linux/x86_64
-## 1. run ##
-# $ docker-compose up -d
+      - ~/Docker/MySQL/Data:/var/lib/mysql # 데이터베이스 파일을 저장할 로컬 폴더 지정, 윈도우는 다르게 경로를 설정.
+    platform: linux/x86_64 # docker mysql 이미지가 linux/x86_64이므로 명시적으로 지정해줌.,
+## // =============================== //
+## 위 내용을 docker-compose.yml 파일로 저장 후 아래 -> Start 섹션의 명령어를 순서대로 실행 ##
+## 위 wordpress 파트는 워드프레스 설치시 사용할 데이터베이스와 사용자를 생성하는 부분이므로 보통은 원하는 데이터 베이스로 이름 및 비밀번호 생성하면됨.(예를 들어둔것임). ##
+## volumes: - `~/Docker/MySQL/Data: ...` 부분은 데이터베이스 파일을 저장할 로컬 폴더를 지정해주는 부분의 견본이므로 윈도우는 다르게 경로를 설정하면됨., 콜론 왼쪽 부분.. 콜론 오른쪽은 모두 동일함.. ##
 
-## 2. connect docker shell ##
-# (1) $ docker exec -it viv-mysql mysql -p
+## Start ##
+## 1. 실행  (위 파일과 동일한 폴더에서, command prompt) ##
+#--> docker-compose up -d
 
-## 2. first connection for configurations mysql  ##
-# (2) docker>root@host: $ mysql -u root -p
+# 터미널에서  --> `docker ps -a`  후 --> status 확인하여 up 되었는지 확인 후, 아래 명령어 실행
 
-## 3. mysql crate user for admin ##
-# (3) mysql> create user 'viv'@'%' identified by 'password';
-# (4) mysql> grant all privileges on *.* to 'viv@'%';
-# (5) mysql> flush privileges;
-# (6) mysql> quit
+## 2. 연결 테스트 (터미널에서) ##
+#--> docker exec -it viv-mysql mysql -p
+
+## 2. 위 명령어가 잘 실행되면? -> 도커 내부에서...  ##
+#--> docker>root@host: $ mysql -u root -p
+
+## 3. 어드민 계정 생성하기,  ##
+# (1) mysql> create user 'viv'@'%' identified by 'password';
+# (2) mysql> grant all privileges on *.* to 'viv@'%';
+# (3) mysql> flush privileges;
+# (4) mysql> quit
+
+## 끝 ##

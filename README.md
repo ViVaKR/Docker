@@ -33,7 +33,7 @@
     CMD ["명령어", "인자1", "인자2"] : 컨테이너 실행시 최초 일회 실행될 명령어 설정
     EXPOSE [Port]/[Protocol(option)] : 서비스 하는 포트 지정
     ADD [호스트 파일] [저장경로]
-    COPY 
+    COPY
     WORKDIR [경로] : 명령어가 실행될 작업 디렉토를 지정 RUN, CMD, ENTRYPOIN 등의 커맨드를 실행하는 디렉토리 지정 -w 오버라이딩 가능
     VOLUME 호스트의 디렉토리를 토커 컨테이너에 연결, 데이터 백업용으로 사용, 데이터베이스 데이터 파일과 같은 경우
     ENV [키] [값] : 환경변수 설정
@@ -68,7 +68,7 @@
 ```
 
 ## Docker push
-  
+
 ## Docker pull
 
 ```bash
@@ -278,8 +278,6 @@ Dockerfile build -> image (create)
   $ docker run -dit --name alpine1 --network aplpine-net alpine ash
   $ docker network connect bridge aplpine4
 ```
-
-## Commands
 
 ```bash
 
