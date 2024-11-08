@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  yourproject:
+    image: yourproject:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:80'
+    restart: always
+# command to run the container
+# docker-compose up -d
+
+# http://localhost:8080

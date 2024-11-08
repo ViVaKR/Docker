@@ -3,7 +3,6 @@
 # 3. 설정 -> 리소스 -> WSL 인테그레이션 -> 기본 distro 통합 체크, 우분투 (WSL) 버전 체크
 
 ## // ============= docker-compose.yml ================== //
-version: "3.8"
 
 services:
   db:
@@ -17,10 +16,10 @@ services:
       - --collation-server=utf8mb4_unicode_ci # 한글설정 2
     restart: unless-stopped # 컨테이너 재시작 정책, 즉, 껏다 켜도 계속 켜져있음.
     environment:
-      MYSQL_ROOT_PASSWORD: "<루트비밀번호>" # <루트비밀번호>라고 동일하게 하지 않길 바램..
+      MYSQL_ROOT_PASSWORD: '<루트비밀번호>' # <루트비밀번호>라고 동일하게 하지 않길 바램..
       MYSQL_DATABASE: wordpress # 루트 대신 대행자를 위해 필요, 예시는 워드프레스 설치시 사용할 데이터베이스 이름 예시일뿐, 즉, 원하는 데이터베이스 이름으로 변경 가능.
       MYSQL_USER: wordpress # 위와 동, 워드프레스 설치시 사용할 데이터베이스 사용자 이름, 즉, 원하는 사용자 이름으로 변경 가능.
-      MYSQL_PASSWORD: "<비밀번호>" # 같은 맥락으로 <비밀번호>라고 동일하게 하지 않길 바램..
+      MYSQL_PASSWORD: '<비밀번호>' # 같은 맥락으로 <비밀번호>라고 동일하게 하지 않길 바램..
       TZ: Asia/Seoul # 한국 시간대.
     volumes:
       - ~/Docker/MySQL/Data:/var/lib/mysql # 데이터베이스 파일을 저장할 로컬 폴더 지정, 윈도우는 다르게 경로를 설정.
