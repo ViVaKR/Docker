@@ -1,9 +1,110 @@
 # PostgreSQL
 
-```sql
-postgreSQL
+```bash
+$ psql -h 192.168.0.8 -p 59293 -U postgres -d postgres
+$ psql -h 192.168.0.8 -p 59293 -U vivabm -d vivabm
+$ psql -h 192.168.0.8 -p 59293 -U vivakr -d vivakr
+$ psql -h 192.168.0.8 -p 59293 -U buddha -d buddha
+$ psql -h 192.168.0.8 -p 59293 -U text -d text
+$ psql -h 192.168.0.222 -p 59874 -U postgres -d postgres
+
+$ psql -U postgres
+$ psql -h 192.168.0.8
+$ psql -h 192.168.0.8 -U postgres
+$ psql -h 192.168.0.8 -U vivabm -d vivabm
+$ psql -h 192.168.0.8 -p 9000 -U vivabm -d vivabm
+$ psql -h localhost -U browndwarf -p 5432 -d galaxy
+$ psql -d dabase -U user -W
+$ psql -h -d database -U user -W
+$ psql -h 192.168.0.8 -p 59293 -d postgres -U postgres -W
+
+
+# using pgcli
+brew install pgcli
+
+pgcli --help
+
+# Usage: pgcli [OPTIONS] [DBNAME] [USERNAME]
+# Options:
+#   -h, --host TEXT          Host address of the postgres database.
+#   -p, --port INTEGER       Port number at which the postgres instance is
+#                            listening.
+#   -U, --username TEXT      Username to connect to the postgres database.
+#   -u, --user TEXT          Username to connect to the postgres database.
+#   -W, --password           Force password prompt.
+#   -w, --no-password        Never prompt for password.
+#   --single-connection      Do not use a separate connection for completions.
+#   -v, --version            Version of pgcli.
+#   -d, --dbname TEXT        database name to connect to.
+#   --pgclirc FILE           Location of pgclirc file.
+#   -D, --dsn TEXT           Use DSN configured into the [alias_dsn] section of
+#                            pgclirc file.
+#   --list-dsn               list of DSN configured into the [alias_dsn] section
+#                            of pgclirc file.
+#   --row-limit INTEGER      Set threshold for row limit prompt. Use 0 to
+#                            disable prompt.
+#   --application-name TEXT  Application name for the connection.
+#   --less-chatty            Skip intro on startup and goodbye on exit.
+#   --prompt TEXT            Prompt format (Default: "\u@\h:\d> ").
+#   --prompt-dsn TEXT        Prompt format for connections using DSN aliases
+#                            (Default: "\u@\h:\d> ").
+#   -l, --list               list available databases, then exit.
+#   --auto-vertical-output   Automatically switch to vertical output mode if the
+#                            result is wider than the terminal width.
+#   --warn TEXT              Warn before running a destructive query.
+#   --ssh-tunnel TEXT        Open an SSH tunnel to the given address and connect
+#                            to the database from it.
+#   --log-file TEXT          Write all queries & output into a file, in addition
+#                            to the normal output destination.
+#   --help                   Show this message and exit.
 
 $ docker exec -it viv-postgres /bin/bash
+```
+
+<pre>
++--------------------------------------+------------------------------------------------+
+| Command                              | Description                                    |
+|--------------------------------------+------------------------------------------------|
+| \#                                   | Refresh auto-completions.                      |
+| \?                                   | Show Commands.                                 |
+| \T [format]                          | Change the table format used to output results |
+| \c[onnect] database_name             | Change to a new database.                      |
+| \conninfo                            | Get connection details                         |
+| \copy [tablename] to/from [filename] | Copy data between a file and a table.          |
+| \d[+] [pattern]                      | List or describe tables, views and sequences.  |
+| \dD[+] [pattern]                     | List or describe domains.                      |
+| \dT[S+] [pattern]                    | List data types                                |
+| \db[+] [pattern]                     | List tablespaces.                              |
+| \df[+] [pattern]                     | List functions.                                |
+| \di[+] [pattern]                     | List indexes.                                  |
+| \dm[+] [pattern]                     | List materialized views.                       |
+| \dn[+] [pattern]                     | List schemas.                                  |
+| \ds[+] [pattern]                     | List sequences.                                |
+| \dt[+] [pattern]                     | List tables.                                   |
+| \du[+] [pattern]                     | List roles.                                    |
+| \dv[+] [pattern]                     | List views.                                    |
+| \dx[+] [pattern]                     | List extensions.                               |
+| \e [file]                            | Edit the query with external editor.           |
+| \h                                   | Show SQL syntax and help.                      |
+| \i filename                          | Execute commands from file.                    |
+| \l[+] [pattern]                      | List databases.                                |
+| \n[+] [name] [param1 param2 ...]     | List or execute named queries.                 |
+| \nd [name]                           | Delete a named query.                          |
+| \ns name query                       | Save a named query.                            |
+| \o [filename]                        | Send all query results to file.                |
+| \pager [command]                     | Set PAGER. Print the query results via PAGER.  |
+| \pset [key] [value]                  | A limited version of traditional \pset         |
+| \q                                   | Quit pgcli.                                    |
+| \refresh                             | Refresh auto-completions.                      |
+| \sf[+] FUNCNAME                      | Show a function's definition.                  |
+| \timing                              | Toggle timing of commands.                     |
+| \x                                   | Toggle expanded output.                        |
+| quit                                 | Quit pgcli.                                    |
++--------------------------------------+------------------------------------------------+
+</pre>
+
+```sql
+
 
 # 언어 설정
 locale-gen ko_KR.UTF-8
@@ -17,7 +118,7 @@ dpkg-reconfigure locales
 -- 4. Template (템플릿 데이터 베이스) : 새로운 데이터베이스의 초기 상태 정의 템플릿, template1 을 사용
 -- 5. Tablespace (테이블스페이스) : 데이터베이스의 물리적 저장위치를 지정, 기본적으로 pg_default 를 사용
 
--- example
+-- example table
 CREATE DATABASE helloworld
 WITH
     OWNER = postgres
@@ -29,7 +130,7 @@ WITH
 ---
 
 -- 템플릿 만들기 (한글)
-CREATE DATABASE template_bm
+CREATE DATABASE template_kor
 WITH
     OWNER = postgres
     ENCODING = 'UTF8'
@@ -40,12 +141,12 @@ WITH
 -- 템플릿으로 설정하기
 UPDATE pg_database
 SET datistemplate = TRUE
-WHERE datname = 'template_bm';
+WHERE datname = 'template_kor';
 
 -- 템플릿은 연결할 수 없도록 설정 함.
 UPDATE pg_database
 SET datallowconn = FALSE
-WHERE datname = 'template_bm';
+WHERE datname = 'template_kor';
 
 -- 템플릿 데이터베이스 여부 쿼리
 select datname, datistemplate from pg_database;
@@ -69,8 +170,6 @@ WITH
     LC_CTYPE = 'ko_KR.UTF-8'
     TEMPLATE = template_bm;
 
-
-
 -- 샘플 테이블
 CREATE TABLE demo_bigserial (
     id BIGSERIAL PRIMARY KEY, -- binint
@@ -87,6 +186,13 @@ CREATE TABLE demo_serial (
 SELECT column_name, data_type, is_nullable
 FROM information_schema.columns
 WHERE table_name = 'demo_bingserial';
+
+-- 샘플
+create database vivakr;
+CREATE USER vivakr WITH PASSWORD '비밀번호';
+grant all privileges on database vivakr to vivakr;
+alter database vivakr owner to vivakr;
+
 ---
 
 # 접속
@@ -99,21 +205,7 @@ $ psql -h hostname -p port -d database -U username
 
 ---
 
-$ psql -h 192.168.0.8 -p 59293 -U postgres -d postgres
-$ psql -h 192.168.0.8 -p 59293 -U vivabm -d vivabm
-$ psql -h 192.168.0.8 -p 59293 -U vivakr -d vivakr
-$ psql -h 192.168.0.8 -p 59293 -U buddha -d buddha
-$ psql -h 192.168.0.8 -p 59293 -U text -d text
-$ psql -h 192.168.0.222 -p 59874 -U postgres
-$ psql -U postgres
-$ psql -h 192.168.0.8
-$ psql -h 192.168.0.8 -U postgres
-$ psql -h 192.168.0.8 -U vivabm -d vivabm
-$ psql -h 192.168.0.8 -p 9000 -U vivabm -d vivabm
-$ psql -h localhost -U browndwarf -p 5432 -d galaxy
-$ psql -d dabase -U user -W
-$ psql -h -d database -U user -W
-$ psql -h 192.168.0.8 -p 59293 -d postgres -U postgres -W
+
 
 ## TableSpace, 테이블 공간
 -- /var/lib/postgresql/data
@@ -303,6 +395,7 @@ select setting from pg_settings where name = 'server_version';
 
 docker inspect --format='{{range .Config.Env}}{{println .}}{{end}}' viv-postgres
 
+-- 데이터베이스 및 사용자 생성 모델
 create database vivakr;
 CREATE USER vivakr WITH PASSWORD '비밀번호';
 grant all privileges on database vivakr to vivakr;
