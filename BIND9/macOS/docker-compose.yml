@@ -8,7 +8,6 @@ services:
     ports:
       - '53:53/tcp'
       - '53:53/udp'
-      - '10001:10001/tcp'
     volumes:
       - ./config:/etc/bind
       - ./cache:/var/cache/bind

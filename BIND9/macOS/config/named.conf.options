@@ -1,0 +1,15 @@
+options {
+    directory "/var/cache/bind";
+    allow-query { 192.168.0.0/24; 192.168.65.0/24; localhost; };
+    allow-query-cache { 192.168.0.0/24; 192.168.65.0/24; localhost; };
+    allow-recursion { 192.168.0.0/24; 192.168.65.0/24; localhost; };
+
+    recursion yes;
+
+    listen-on port 53 { any; };
+    listen-on-v6 port 53 { any; };
+    forwarders {
+        8.8.8.8;  # Google DNS
+        1.1.1.1;  # Cloudflare DNS
+    };
+};

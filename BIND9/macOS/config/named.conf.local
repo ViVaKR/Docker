@@ -1,0 +1,11 @@
+zone "vivakr.local" {
+    type master;
+    file "/etc/bind/vivakr.local.zone";
+    allow-update { none; };
+};
+
+zone "0.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.0.168.192";
+    allow-update { none; };
+};
