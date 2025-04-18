@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+    image: viv-exec:latest
+    container_name: viv-exec
+    ports:
+      - '8293:8293'
+    volumes:
+      - .:/usr/src/app
+    restart: always
+
+# docker-compose up --build -d
+# docker-compose down

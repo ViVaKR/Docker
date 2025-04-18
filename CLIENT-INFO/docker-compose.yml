@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    image: client-info:latest # 이미지 이름 지정
+    container_name: client-info # 컨테이너 이름 지정
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - '5130:5130' # 포트 매핑
+    command: node server.mjs
+    restart: unless-stopped # 자동 재시작 설정

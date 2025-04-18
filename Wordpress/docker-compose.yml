@@ -1,19 +1,37 @@
-version: "3.1"
-
 services:
-  app:
+  db:
+    image: mariadb:latest
+    container_name: viv-mariadb
+    command: "--default-authentication-plugin=mysql_native_password"
+    volumes:
+      - ./db:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - 58273:3306
+    expose:
+      - 3306
+      - 33060
+
+  wordpress:
     image: wordpress:latest
     container_name: viv-wordpress
-    hostname: wordpress
     volumes:
-      - ~/Docker/Wordpress/html:/var/www/html
+      - ./html:/var/www/html
     ports:
-      - "22220:80"
-    restart: unless-stopped
+      - 39715:80
+    restart: always
     environment:
-        WORDPRESS_DB_HOST: 192.168.0.8:59073
-        WORDPRESS_DB_NAME: wordpress
-        WORDPRESS_DB_USER: wordpress
-        WORDPRESS_DB_PASSWORD: "<MySQL?DB%Password>" 
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+      - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+volumes:
+  maria_db_data:
+  wp_data:
 
-# $docker-compose up 
+    # http://localhost:39715

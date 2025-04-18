@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sandboxed-node-app
+    ports:
+      - '8293:8293'
+    restart: always

@@ -1,22 +1,16 @@
-version: '3.1'
-
 services:
   db:
-    image: postgres:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
-    container_name: viv-postgresql
+    container_name: viv-postgres
     environment:
-      POSTGRES_USER: vivakr
-      POSTGRES_PASSWORD: vivakr
-      POSTGRES_DB: vivakr
-      TZ: 'Asia/Seoul'
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vivabm
+      POSTGRES_INITDB_ARGS: --locale-provider=icu --icu-locale=ko-KR --data-checksums
     ports:
-      - 59073:5432
+      - 59293:5432
     volumes:
-      - ~/Docker/Postgres/Data:/var/lib/postgresql/data
-
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
+      - ./data:/var/lib/postgres/data
