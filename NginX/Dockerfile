@@ -7,4 +7,4 @@ ENTRYPOINT [ "/bin/df.sh" ]
 # docker build -t vivabm/df:latest .
 
 #! nginx container shared
-# docker run -v /Users/vivakr/Docker/NginX/44440/html:/webdata -d --restart unless-stopped --name viv-df -h vivdf vivabm/df:latest
+# docker run -v /Users/vivakr/Docker/EginX/44440/html:/webdata -d --restart unless-stopped --name viv-df -h vivdf vivabm/df:latest
