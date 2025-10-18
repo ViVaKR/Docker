@@ -1,0 +1,5 @@
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/bin/Release/net9.0/publish/DotNet.Docker
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/bin/Release/net9.0/publish/DotNet.Docker.dll
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/bin/Release/net9.0/publish/DotNet.Docker.deps.json
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/bin/Release/net9.0/publish/DotNet.Docker.runtimeconfig.json
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/bin/Release/net9.0/publish/DotNet.Docker.pdb

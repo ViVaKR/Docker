@@ -1,0 +1,15 @@
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/bin/Release/net9.0/DotNet.Docker
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/bin/Release/net9.0/DotNet.Docker.deps.json
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/bin/Release/net9.0/DotNet.Docker.runtimeconfig.json
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/bin/Release/net9.0/DotNet.Docker.dll
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/bin/Release/net9.0/DotNet.Docker.pdb
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/obj/Release/net9.0/DotNet.Docker.GeneratedMSBuildEditorConfig.editorconfig
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/obj/Release/net9.0/DotNet.Docker.AssemblyInfoInputs.cache
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/obj/Release/net9.0/DotNet.Docker.AssemblyInfo.cs
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/obj/Release/net9.0/DotNet.Docker.csproj.CoreCompileInputs.cache
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/obj/Release/net9.0/DotNet.Docker.sourcelink.json
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/obj/Release/net9.0/DotNet.Docker.dll
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/obj/Release/net9.0/refint/DotNet.Docker.dll
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/obj/Release/net9.0/DotNet.Docker.pdb
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/obj/Release/net9.0/DotNet.Docker.genruntimeconfig.cache
+/home/viva/GitWorkspace/Docker/App/DotNet.Docker/obj/Release/net9.0/ref/DotNet.Docker.dll

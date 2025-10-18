@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "4lvH2CJcXH4=",
+  "success": true,
+  "projectFilePath": "/home/viva/GitWorkspace/Docker/App/DotNet.Docker/DotNet.Docker.csproj",
+  "expectedPackageFiles": [
+    "/home/viva/.nuget/packages/microsoft.netcore.app.host.linux-x64/9.0.10/microsoft.netcore.app.host.linux-x64.9.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}
