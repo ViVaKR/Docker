@@ -30,5 +30,8 @@ echo "✅ Build complete!"
 
     # digest 최신화 + 이미지 재빌드
     # ./update-digests.sh
+    # docker compose build --no-cache
+
     # 테스트 실행 (예: 10회 출력)
     # docker compose run --rm dotnet-console 10
+    # docker image prune -f
