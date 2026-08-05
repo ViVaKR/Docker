@@ -1,0 +1,22 @@
+# Dockerfile
+FROM postgres:latest
+
+# 시스템 로캘 및 시간대 설정
+RUN apt-get update && apt-get install -y locales \
+    && sed -i 's/# ko_KR.UTF-8 UTF-8/ko_KR.UTF-8 UTF-8/' /etc/locale.gen \
+    && locale-gen ko_KR.UTF-8 \
+    && ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV LANG=ko_KR.UTF-8 \
+    LC_ALL=ko_KR.UTF-8 \
+    LANGUAGE=ko_KR.UTF-8
+
+# PostgreSQL이 내부적으로 사용하는 데이터 디렉터리
+# PostgreSQL 18에서는 버전별 디렉터리 구조로 변경됨
+ENV PGDATA=/var/lib/postgresql/18/docker
+
+# OLD Version
+# FROM postgres:latest
+# RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && sed -i 's/# ko_KR.UTF-8 UTF-8/ko_KR.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
+# ENV LANG=ko_KR.UTF-8 LC_ALL=ko_KR.UTF-8

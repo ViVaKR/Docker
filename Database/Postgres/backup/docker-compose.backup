@@ -1,0 +1,35 @@
+services:
+  vivakr-postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vivakr-postgres:latest
+    container_name: vivakr-postgres
+    restart: always
+
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=ko-KR --data-checksums"
+      LANG: ko_KR.UTF-8
+      LC_ALL: ko_KR.UTF-8
+      TZ: Asia/Seoul
+      PGDATA: /var/lib/postgresql/18/docker
+
+    ports:
+      - "49273:5432"
+
+    # PostgreSQL 18 버전 기준 데이터 디렉터리 (PGDATA)
+    volumes:
+      - vivakr_postgres_data:/var/lib/postgresql/18/docker
+
+    networks:
+      - vivakr_postgres_net
+
+volumes:
+  vivakr_postgres_data:
+
+networks:
+  vivakr_postgres_net:
+    driver: bridge

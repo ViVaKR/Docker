@@ -1,0 +1,61 @@
+# compose.yaml — 대한민국 PostgreSQL 18 한글 완벽 컨테이너
+services:
+  vivakr-postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vivakr-postgres:latest
+    container_name: vivakr-postgres
+    restart: always
+
+    # ---------- 필수 환경변수 ----------
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+      # ICU 기반 한국어 로케일 + 체크섬 (데이터 무결성 보장)
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=ko-KR --data-checksums"
+
+      # 컨테이너 OS 레벨 언어/시간대 설정
+      LANG: ko_KR.UTF-8
+      LC_ALL: ko_KR.UTF-8
+      TZ: Asia/Seoul
+
+      # PostgreSQL 18 전용 데이터 디렉터리
+      PGDATA: /var/lib/postgresql/18/docker
+
+    # ---------- 포트 ----------
+    ports:
+      - "49273:5432"
+
+    # ---------- 영구 타임존 고정 (이게 핵심!) ----------
+    command: >
+      postgres
+      -c timezone=Asia/Seoul
+      -c log_timezone=Asia/Seoul
+      -c datestyle="iso, dmy"
+      -c lc_messages="ko_KR.UTF-8"
+      -c lc_monetary="ko_KR.UTF-8"
+      -c lc_numeric="ko_KR.UTF-8"
+      -c lc_time="ko_KR.UTF-8"
+
+    # ---------- 볼륨 ----------
+    volumes:
+      - vivakr_postgres_data:/var/lib/postgresql/18/docker
+      # 백업용 스크립트나 init.sql 넣고 싶으면 아래처럼 추가
+      # - ./init-scripts:/docker-entrypoint-initdb.d
+
+    # ---------- 네트워크 ----------
+    networks:
+      - vivakr_postgres_net
+
+# ---------- 볼륨 & 네트워크 정의 ----------
+volumes:
+  vivakr_postgres_data:
+    name: vivakr_postgres_data
+
+networks:
+  vivakr_postgres_net:
+    driver: bridge
+    name: vivakr_postgres_net
